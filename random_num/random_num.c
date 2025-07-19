@@ -23,13 +23,13 @@ int main(void)
     char poss3[100];
 
     printf("What is the first possibility: ");
-    scanf("%s", poss1);
+    fgets(poss1, sizeof(poss1), stdin);
     
     printf("What is the second possibility: ");
-    scanf("%s", poss2);
+    fgets(poss2, sizeof(poss2), stdin);
 
     printf("What is the third possibility: ");
-    scanf("%s", poss3);
+    fgets(poss3, sizeof(poss3), stdin);
 
     srand(time(0));
 
@@ -50,7 +50,6 @@ int main(void)
         strcpy(answer, poss3);
     }
 
-
-    printf("For the question of %s, you will most likely to %s.\n", que, answer);
+    printf("For the question of %s, it will most likely to be %s.\n", que, answer);
 
 }
