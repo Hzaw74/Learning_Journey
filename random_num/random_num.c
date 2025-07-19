@@ -1,14 +1,56 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
-int main (void)
+int main(void)
 {
-    int num = 0;
-    printf("This is a guessing game where the number is between 0 and 100.\n");
-    printf("Enter a number: ");
-    scanf("%d", &num);
+    char que[100];
 
-    if (num < 50)
+    printf("What do you want to ask: ");
+
+    fgets(que, sizeof(que), stdin);
+
+    // printf("%s\n", que);
+
+    int count;
+    
+    // printf("How many possibilities: ");
+    // scanf("%d", count);
+
+    char poss1[100];
+    char poss2[100];
+    char poss3[100];
+
+    printf("What is the first possibility: ");
+    scanf("%s", poss1);
+    
+    printf("What is the second possibility: ");
+    scanf("%s", poss2);
+
+    printf("What is the third possibility: ");
+    scanf("%s", poss3);
+
+    srand(time(0));
+
+    int chance = (rand() % 3) + 1;
+
+    char answer[100];
+
+    if(chance == 1)
     {
-        num = num 
+        strcpy(answer, poss1);
     }
+    else if(chance == 2)
+    {
+        strcpy(answer, poss2);
+    }
+    else
+    {
+        strcpy(answer, poss3);
+    }
+
+
+    printf("For the question of %s, you will most likely to %s.\n", que, answer);
+
 }
