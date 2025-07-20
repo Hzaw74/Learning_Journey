@@ -11,13 +11,6 @@ int main(void)
 
     fgets(que, sizeof(que), stdin);
 
-    // printf("%s\n", que);
-
-    int count;
-    
-    // printf("How many possibilities: ");
-    // scanf("%d", count);
-
     char poss1[100];
     char poss2[100];
     char poss3[100];
@@ -50,6 +43,6 @@ int main(void)
         strcpy(answer, poss3);
     }
 
-    printf("For the question of %s, it will most likely to be %s.\n", que, answer);
+    printf("For the question of %s, it will most likely to be %s\n.", que, answer);
 
 }
