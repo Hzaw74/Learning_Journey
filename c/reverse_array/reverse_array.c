@@ -2,26 +2,29 @@
 
 int main(void)
 {
-    // int size1 = 5;
-    // int size2 = 5;
+    int count;
+    printf("How many numbers: ");
+    scanf("%d", &count);
 
-    int arr1[5] = {1, 2, 3, 4, 5};
-    int arr2[5];
-
-    int tem;
-
-    for(int i = 0; i < 5; i++)
+    int num[count];
+    for(int k = 0; k < count; k++)
     {
-        arr1[i] = tem;
-        
-        for(int j = 5; j > 0; j--)
-        {
-            arr2[j] = tem; 
-        }
+        printf("%d. Enter a number: ");
+        scanf("%d", num[k]);
     }
 
-    for(int k = 0; k < 5; k++)
+    reverse(num[count], count);
+
+    printf("")
+}
+
+void reverse(int arr[], int n)
+{
+    int tmp;
+    for(int i = 0, j = n -1; j > i; i++, j++)
     {
-        printf("%d\n", arr2[k]);
+        tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }
