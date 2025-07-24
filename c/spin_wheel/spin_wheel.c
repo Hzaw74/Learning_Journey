@@ -43,6 +43,6 @@ int main(void)
         strcpy(answer, poss3);
     }
 
-    printf("For the question of %s, it will most likely to be %s\n.", que, answer);
+    printf("For the question of \"%s\", it will most likely to be %s\n.", que, answer);
 
 }
