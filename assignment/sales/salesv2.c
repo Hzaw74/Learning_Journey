@@ -50,13 +50,13 @@ int main() {
             switch (menu) {
                 case 1: {
                     float totalSales = total(salesOG);
-                    printf("\nTotal sales: $%.2f\n", totalSales);
+                    printf("\nTotal sales: $%.2f\n***\n", totalSales);
                     break;
                 }
 
                 case 2: {
                     float averageSales = average(salesOG);
-                    printf("\nAverage sales: $%.2f\n", averageSales);
+                    printf("\nAverage sales: $%.2f\n***\n", averageSales);
                     break;
                 }
 
@@ -77,7 +77,7 @@ int main() {
                                 month = salesOG[i].month;
                             }
                         }
-                        printf("\nMinimum sale is $%.2f in Month %d\n", min, month);
+                        printf("\nMinimum sale is $%.2f in Month %d\n***\n", min, month);
                     } else if (searchOption == 2) {
                         float max = salesOG[0].value;
                         int month = salesOG[0].month;
@@ -87,7 +87,7 @@ int main() {
                                 month = salesOG[i].month;
                             }
                         }
-                        printf("\nMaximum sale is $%.2f in Month %d\n", max, month);
+                        printf("\nMaximum sale is $%.2f in Month %d\n***\n", max, month);
                     } else if (searchOption == 3) {
                         continue;
                     } else {
@@ -113,7 +113,7 @@ int main() {
                             sortDescending(salesCopy);
                             break;
                         case 3:
-                            printf("Original List:\n");
+                            printf("\nOriginal List:\n");
                             for (int i = 0; i < 12; i++) {
                                 printf("Month %d: $%.2f\n", salesOG[i].month, salesOG[i].value);
                             }
@@ -143,7 +143,7 @@ int main() {
         } while (!exit && !reEnter);
     } while (!exit);
 
-    printf("Thank you for using the software.\n");
+    printf("\nThank you for using the software.\n");
     return 0;
 }
 
