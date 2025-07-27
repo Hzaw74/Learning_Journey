@@ -7,33 +7,34 @@ struct Sale {
     float value;
 };
 
-float total(struct Sale arr[]);
-float average(struct Sale arr[]);
-void sortAscending(struct Sale arr[]);
-void sortDescending(struct Sale arr[]);
+float total(struct Sale arr[]); // Declartion for the function to calculate total sales
+float average(struct Sale arr[]); // Declartion for the function to calculate average sales
+void sortAscending(struct Sale arr[]); // Declartion for the function to sort the data in ascending order
+void sortDescending(struct Sale arr[]); // Declartion for the function to sort the data in descending order
 
 int main() {
-    struct Sale salesOG[12];
-    struct Sale salesCopy[12];
+    struct Sale salesOG[12]; // Original sales value for 12 months
+    struct Sale salesCopy[12]; // A copy to use in sorting, to protect the original data
+
     int menu;
-    bool firstRun = true;
-    bool reEnter = false;
-    bool exit = false;
+    bool firstRun = true; // To run once at first time and only first time
+    bool reEnter = false; // Initializing the boolean value to false, will update this if user wants to reenter the sales value
+    bool exit = false; // Initializing the boolean value to false, will update this if user wants to exit the program
     int searchOption;
 
     printf("Welcome to the monthly sales database\n");
 
     do {
-        if (firstRun || reEnter) {
+        if (firstRun || reEnter) { // To run at first time or if the user chooses to reenter the sales value
             printf("Enter sales data for 12 months:\n");
             for (int i = 0; i < 12; i++) {
                 printf("Month %d: ", i + 1);
                 scanf("%f", &salesOG[i].value);
                 salesOG[i].month = i + 1;
-                salesCopy[i] = salesOG[i];
+                salesCopy[i] = salesOG[i]; // To copy each month sales from original to a copy
             }
-            firstRun = false;
-            reEnter = false;
+            firstRun = false; // Updating to indicate that already run for the first time
+            reEnter = false; // Resetting the reenter value
         }
 
         do {
@@ -89,7 +90,7 @@ int main() {
                         }
                         printf("\nMaximum sale is $%.2f in Month %d\n***\n", max, month);
                     } else if (searchOption == 3) {
-                        continue;
+                        continue; // To go back to main menu
                     } else {
                         printf("Invalid option.\n");
                     }
@@ -120,7 +121,7 @@ int main() {
                             sortAscending(salesCopy);
                             break;
                         case 4:
-                            continue;
+                            continue; // To go back to main menu
                         default:
                             printf("Invalid sort option.\n");
                             break;
@@ -129,11 +130,11 @@ int main() {
                 }
 
                 case 5:
-                    reEnter = true;
+                    reEnter = true; // Updating the boolean to true to reenter sales data
                     break;
 
                 case 6:
-                    exit = true;
+                    exit = true; // Updating the boolean to true to exit the program/ loop
                     break;
 
                 default:
