@@ -7,10 +7,11 @@ struct Sale {
     float value;
 };
 
-float total(struct Sale arr[]); // Declartion for the function to calculate total sales
-float average(struct Sale arr[]); // Declartion for the function to calculate average sales
-void sortAscending(struct Sale arr[]); // Declartion for the function to sort the data in ascending order
-void sortDescending(struct Sale arr[]); // Declartion for the function to sort the data in descending order
+float total(struct Sale arr[]); // Declaration for the function to calculate total sales
+float average(struct Sale arr[]); // Declaration for the function to calculate average sales
+void searchBySale(struct Sale arr[]); // Declaraton for the function to find the months with user requested sales value
+void sortAscending(struct Sale arr[]); // Declaration for the function to sort the data in ascending order
+void sortDescending(struct Sale arr[]); // Declaration for the function to sort the data in descending order
 
 int main() {
     struct Sale salesOG[12]; // Original sales value for 12 months
@@ -30,15 +31,16 @@ int main() {
             for (int i = 0; i < 12; i++) {
                 printf("Month %d: ", i + 1);
                 scanf("%f", &salesOG[i].value);
-                salesOG[i].month = i + 1;
+                salesOG[i].month = i + 1; // Assign month number (1 to 12)
                 salesCopy[i] = salesOG[i]; // To copy each month sales from original to a copy
             }
-            firstRun = false; // Updating to indicate that already run for the first time
+            firstRun = false; // Updating to indicate that already ran for the first time
             reEnter = false; // Resetting the reenter value
         }
 
+        // Main menu
         do {
-            printf("\nChoose the operation:\n");
+            printf("\nChoose a operation:\n");
             printf("1. Total sales\n");
             printf("2. Average sales\n");
             printf("3. Search\n");
@@ -60,12 +62,14 @@ int main() {
                     printf("\nAverage sales: $%.2f\n***\n", averageSales);
                     break;
                 }
-
+                
+                // Search for month with minimum, maximum, or a specific sales value
                 case 3: {
                     printf("\nSearch Options:\n");
                     printf("1. Minimum sale\n");
                     printf("2. Maximum sale\n");
-                    printf("3. Go back\n");
+                    printf("3. Search month by sales value\n");
+                    printf("4. Go back\n");
                     printf("Choice: ");
                     scanf("%d", &searchOption);
 
@@ -90,7 +94,9 @@ int main() {
                         }
                         printf("\nMaximum sale is $%.2f in Month %d\n***\n", max, month);
                     } else if (searchOption == 3) {
-                        continue; // To go back to main menu
+                            searchBySale(salesOG);
+                    } else if (searchOption == 4) {
+                        continue; // Skip to next iteration to go back to main menu
                     } else {
                         printf("Invalid option.\n");
                     }
@@ -101,7 +107,7 @@ int main() {
                     printf("\nSort Options:\n");
                     printf("1. Ascending\n");
                     printf("2. Descending\n");
-                    printf("3. Compare Ascending with Original\n");
+                    printf("3. Compare Ascending list with Original\n");
                     printf("4. Go back\n");
                     printf("Choice: ");
                     scanf("%d", &searchOption);
@@ -121,7 +127,7 @@ int main() {
                             sortAscending(salesCopy);
                             break;
                         case 4:
-                            continue; // To go back to main menu
+                            continue; // Skip to next iteration to go back to main menu
                         default:
                             printf("Invalid sort option.\n");
                             break;
@@ -148,6 +154,7 @@ int main() {
     return 0;
 }
 
+// Calculates the total sales from an array of Sale structs
 float total(struct Sale arr[]) {
     float sum = 0;
     for (int i = 0; i < 12; i++) {
@@ -156,10 +163,37 @@ float total(struct Sale arr[]) {
     return sum;
 }
 
+// Calculates the average sales
 float average(struct Sale arr[]) {
     return total(arr) / 12;
 }
 
+// Search month by sales
+void searchBySale(struct Sale arr[]) {
+    float searchValue;
+    bool found = false;
+    bool searchFirstRun = true;
+
+    printf("Enter the value to search for: ");
+    scanf("%f", &searchValue);
+
+    for(int i = 0; i < 12; i++) {
+        if(arr[i].value == searchValue) {
+            if(searchFirstRun) {
+                printf("\nMonth(s) with sales value $%.2f:\n", searchValue);
+                searchFirstRun = false;
+            }
+            printf("Month: %d\n", arr[i].month);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        printf("\n***\nNo month found with sale value $%.2f\n***\n", searchValue);
+    }
+}
+
+// Sorts sales data in ascending order by value using Bubble Sort
 void sortAscending(struct Sale arr[]) {
     for (int i = 0; i < 11; i++) {
         for (int j = 0; j < 11 - i; j++) {
@@ -177,6 +211,7 @@ void sortAscending(struct Sale arr[]) {
     }
 }
 
+// Sorts sales data in descending order by value using Bubble Sort
 void sortDescending(struct Sale arr[]) {
     for (int i = 0; i < 11; i++) {
         for (int j = 0; j < 11 - i; j++) {
