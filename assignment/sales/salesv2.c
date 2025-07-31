@@ -144,7 +144,7 @@ int main() {
                     break;
 
                 default:
-                    printf("Invalid choice. Please try again.\n");
+                    printf("Invalid choice. Please try again.\n"); // Checking for invalid input
                     break;
             }
         } while (!exit && !reEnter);

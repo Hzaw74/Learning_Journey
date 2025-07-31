@@ -29,6 +29,7 @@ int main() {
     return 0;
 }
 
+// Choice for types of properties
 int propertyChoice(void)
 {
     int menu;
@@ -46,11 +47,12 @@ int propertyChoice(void)
         if(menu < 1 || menu > 3) {
             printf("\nInvalid input. Please enter 1, 2, or 3.\n\n");
         }
-    } while (menu < 1 || menu > 3); // Loop until valid input is entered
+    } while (menu < 1 || menu > 3); // Loop until a valid input is entered
     
     return menu;
 }
 
+// Checking if the purchase price is not 0 or a negative
 int inputPrice(void) {
     int price;
 
@@ -67,6 +69,7 @@ int inputPrice(void) {
     return price;
 }
 
+// To calcuate the tax based on property type and purchase price
 float computeBSD(int menu, int price) {   
     float tax = 0;
 
