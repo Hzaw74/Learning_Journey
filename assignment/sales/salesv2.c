@@ -28,12 +28,22 @@ int main() {
     do {
         if (firstRun || reEnter) { // To run at first time or if the user chooses to reenter the sales value
             printf("Enter sales data for 12 months:\n");
+
             for (int i = 0; i < 12; i++) {
-                printf("Month %d: ", i + 1);
-                scanf("%f", &salesOG[i].value);
+                float input;
+                do {
+                    printf("Month %d: ", i + 1);
+                    scanf("%f", &input);
+                    if (input < 0) {
+                        printf("Sales cannot be negative. Please enter again.\n");
+                    }
+                } while (input < 0);
+
+                salesOG[i].value = input;
                 salesOG[i].month = i + 1; // Assign month number (1 to 12)
                 salesCopy[i] = salesOG[i]; // To copy each month sales from original to a copy
             }
+
             firstRun = false; // Updating to indicate that already ran for the first time
             reEnter = false; // Resetting the reenter value
         }
