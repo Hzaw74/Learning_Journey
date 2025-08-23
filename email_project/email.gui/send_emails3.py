@@ -60,8 +60,8 @@ DELAY_VARIATION = 0.50    # ±50%
 
 BATCH_MIN = 5
 BATCH_MAX = 8
-BATCH_BREAK_MIN = 5 * 60   # 5 minutes (seconds)
-BATCH_BREAK_MAX = 15 * 60  # 15 minutes (seconds)
+BATCH_BREAK_MIN = 4 * 60   # 4 minutes (seconds)
+BATCH_BREAK_MAX = 10 * 60  # 10 minutes (seconds)
 
 TYPING_MIN = 1   # seconds
 TYPING_MAX = 3   # seconds
