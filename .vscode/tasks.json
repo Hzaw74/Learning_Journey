@@ -2,6 +2,16 @@
     "tasks": [
         {
             "type": "cppbuild",
+<<<<<<< HEAD
+            "label": "C/C++: cl.exe build active file",
+            "command": "cl.exe",
+            "args": [
+                "/Zi",
+                "/EHsc",
+                "/nologo",
+                "/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${file}"
+=======
             "label": "C/C++: gcc build active file",
             "command": "/usr/bin/gcc",
             "args": [
@@ -10,12 +20,17 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
+>>>>>>> b3cda7a078b4c65858098c3df012c4a668650d11
             ],
             "options": {
                 "cwd": "${fileDirname}"
             },
             "problemMatcher": [
+<<<<<<< HEAD
+                "$msCompile"
+=======
                 "$gcc"
+>>>>>>> b3cda7a078b4c65858098c3df012c4a668650d11
             ],
             "group": {
                 "kind": "build",
