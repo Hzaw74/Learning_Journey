@@ -1,8 +1,161 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>Hi!</head>
-    <body>
-        Hello
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <div id="app" class="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full text-center">
+        <!-- Content will be injected here by JavaScript -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = document.getElementById('app');
+            let pleaseCount = 0;
+
+            const render = (state) => {
+                switch (state) {
+                    case 'initial':
+                        app.innerHTML = `
+                            <h1 class="text-3xl font-bold text-gray-800 mb-6">Hello Chit Sone!</h1>
+                            <p class="text-xl text-gray-600 mb-8">Do you love me? ${'please '.repeat(pleaseCount)}</p>
+                            <div class="flex justify-center space-x-4">
+                                <button id="yes-btn" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors">Yes</button>
+                                <button id="no-btn" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">No</button>
+                            </div>
+                        `;
+                        break;
+                    case 'yes_scale':
+                        app.innerHTML = `
+                            <h1 class="text-3xl font-bold text-gray-800 mb-6">That's wonderful!</h1>
+                            <p class="text-xl text-gray-600 mb-8">How much do you love me?</p>
+                            <div class="flex justify-center space-x-2 my-4">
+                                <label class="flex flex-col items-center cursor-pointer">
+                                    <input type="radio" name="love-scale" value="1" class="hidden peer">
+                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">1</div>
+                                </label>
+                                <label class="flex flex-col items-center cursor-pointer">
+                                    <input type="radio" name="love-scale" value="2" class="hidden peer">
+                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">2</div>
+                                </label>
+                                <label class="flex flex-col items-center cursor-pointer">
+                                    <input type="radio" name="love-scale" value="3" class="hidden peer">
+                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">3</div>
+                                </label>
+                                <label class="flex flex-col items-center cursor-pointer">
+                                    <input type="radio" name="love-scale" value="4" class="hidden peer">
+                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">4</div>
+                                </label>
+                                <label class="flex flex-col items-center cursor-pointer">
+                                    <input type="radio" name="love-scale" value="5" class="hidden peer">
+                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">5</div>
+                                </label>
+                            </div>
+                            <p id="scale-response" class="mt-4 text-lg font-semibold text-gray-700"></p>
+                        `;
+                        // Add event listeners for the new radio buttons
+                        document.querySelectorAll('input[name="love-scale"]').forEach(radio => {
+                            radio.addEventListener('change', (e) => {
+                                const value = parseInt(e.target.value);
+                                const responseEl = document.getElementById('scale-response');
+                                switch (value) {
+                                    case 1:
+                                        responseEl.textContent = "Oh, that's a start.";
+                                        break;
+                                    case 2:
+                                        responseEl.textContent = "I hope I can earn a higher score!";
+                                        break;
+                                    case 3:
+                                        responseEl.textContent = "Okay, that's pretty good!";
+                                        break;
+                                    case 4:
+                                        responseEl.textContent = "Almost perfect! I'll take it.";
+                                        break;
+                                    case 5:
+                                        responseEl.textContent = "That's incredible! I love you too!";
+                                        break;
+                                }
+                            });
+                        });
+                        break;
+                    case 'no_wrong':
+                        app.innerHTML = `
+                            <h1 class="text-3xl font-bold text-gray-800 mb-6">Oh no!</h1>
+                            <p class="text-xl text-gray-600 mb-8">Did I do anything wrong?</p>
+                            <div class="flex justify-center space-x-4">
+                                <button id="no-wrong-yes" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors">Yes</button>
+                                <button id="no-wrong-no" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">No</button>
+                            </div>
+                        `;
+                        break;
+                    case 'forgive_me':
+                        app.innerHTML = `
+                            <h1 class="text-3xl font-bold text-gray-800 mb-6">I am so sorry.</h1>
+                            <p class="text-xl text-gray-600 mb-8">Will you forgive me?</p>
+                            <div class="flex justify-center space-x-4">
+                                <button id="forgive-yes" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors">Yes</button>
+                                <button id="forgive-no" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">No</button>
+                            </div>
+                        `;
+                        break;
+                    case 'final_yes':
+                        app.innerHTML = `
+                            <h1 class="text-3xl font-bold text-gray-800 mb-6">Thank you.</h1>
+                            <p class="text-xl text-gray-600 mb-8">I'll try my best not to do it again.</p>
+                        `;
+                        break;
+                    case 'final_no':
+                        app.innerHTML = `
+                            <h1 class="text-3xl font-bold text-gray-800 mb-6">I understand.</h1>
+                            <p class="text-xl text-gray-600 mb-8">I'll try to earn your trust back.</p>
+                        `;
+                        break;
+                }
+            };
+
+            const handleClick = (e) => {
+                const id = e.target.id;
+                switch (id) {
+                    case 'yes-btn':
+                        render('yes_scale');
+                        break;
+                    case 'no-btn':
+                        render('no_wrong');
+                        break;
+                    case 'no-wrong-yes':
+                        render('forgive_me');
+                        break;
+                    case 'no-wrong-no':
+                        pleaseCount++;
+                        render('initial');
+                        break;
+                    case 'forgive-yes':
+                        render('final_yes');
+                        break;
+                    case 'forgive-no':
+                        render('final_no');
+                        break;
+                }
+            };
+
+            // Use event delegation on the main app container
+            app.addEventListener('click', handleClick);
+
+            // Initial render
+            render('initial');
+        });
+    </script>
+
+</body>
 </html>
