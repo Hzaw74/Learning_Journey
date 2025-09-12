@@ -3,157 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do You Love Me?</title>
+    <title>Productivity Dashboard</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d;
+            background-image: radial-gradient(at 0% 0%, rgba(50, 50, 50, 0.15) 0, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.15) 0, transparent 50%);
+        }
+        .scrollable-content {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #1e1e1e;
+        }
+        .scrollable-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background-color: #333;
+            border-radius: 4px;
+        }
+        .scrollable-content::-webkit-scrollbar-track {
+            background-color: #1e1e1e;
+            border-radius: 4px;
+        }
+        .checkbox-custom {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 0.25rem;
+            border: 2px solid #555;
+            background-color: #222;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+        }
+        .checkbox-custom:checked {
+            background-color: #38bdf8; /* Sky-400 */
+            border-color: #38bdf8;
+        }
+        .checkbox-custom:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0.35rem;
+            height: 0.65rem;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: translate(-50%, -60%) rotate(45deg);
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="p-8 md:p-12 text-gray-200">
 
     <!-- Main Container -->
-    <div id="app" class="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full text-center">
-        <!-- Content will be injected here by JavaScript -->
+    <div class="flex flex-col gap-8 max-w-7xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-bold text-center text-sky-400 mb-4 drop-shadow-md">
+            Productivity Dashboard
+        </h1>
+
+        <!-- User ID Display -->
+        <div id="user-info" class="bg-gray-900 p-4 rounded-xl shadow-inner text-sm text-center font-mono break-all mb-4">
+            Loading user...
+        </div>
+
+        <!-- Main Info Card: Clock, Weather, and Timer -->
+        <div class="bg-gray-900 p-8 rounded-3xl shadow-2xl border border-gray-700 backdrop-blur-sm bg-opacity-70 flex flex-col items-center gap-8 animate-fade-in-up">
+            <!-- Clock -->
+            <div class="text-center w-full">
+                <div id="clock" class="text-6xl md:text-8xl font-bold text-teal-400 drop-shadow-lg">
+                    Loading time...
+                </div>
+                <div id="date" class="text-xl md:text-2xl text-gray-400 mt-2">
+                    Loading date...
+                </div>
+            </div>
+
+            <!-- Horizontal Separator -->
+            <div class="w-full h-px bg-gray-600"></div>
+
+            <!-- Weather and Pomodoro Timer Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+                <!-- Weather -->
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold mb-2 text-gray-300">Weather</h2>
+                    <div id="weather-info" class="text-center">
+                        <div id="weather-temp" class="text-5xl font-bold text-sky-400 drop-shadow-lg">
+                            <svg class="animate-spin h-8 w-8 text-sky-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                        <div id="weather-desc" class="text-lg md:text-xl text-gray-400 mt-2">
+                            Getting location...
+                        </div>
+                        <div id="weather-forecast" class="text-sm text-gray-400 mt-1 italic"></div>
+                    </div>
+                </div>
+
+                <!-- Pomodoro Timer -->
+                <div class="text-center flex flex-col items-center">
+                    <h2 class="text-2xl font-bold mb-2 text-gray-300">Pomodoro</h2>
+                    <div id="timer-display" class="text-5xl font-mono text-rose-400 mb-4">25:00</div>
+                    <div class="flex gap-4">
+                        <button id="start-timer-btn" class="bg-sky-500 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-transform transform hover:scale-105">Start</button>
+                        <button id="pause-timer-btn" class="bg-gray-700 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-transform transform hover:scale-105">Pause</button>
+                        <button id="reset-timer-btn" class="bg-red-500 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-transform transform hover:scale-105">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Today's Focus Section -->
+        <div class="bg-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 mt-4 animate-fade-in-up delay-100">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-300 text-center">Today's Focus</h2>
+            <div id="focus-display" class="w-full text-center text-4xl italic text-sky-400 font-bold mb-4">
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="focus-input" class="flex-1 p-3 rounded-lg border border-gray-700 bg-gray-950 text-gray-200 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all" placeholder="Enter today's main goal...">
+                <button id="save-focus-btn" class="bg-teal-500 text-white font-semibold py-2 px-6 rounded-lg shadow-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-transform transform hover:-translate-y-0.5">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <!-- Notes and To-Do Sections -->
+        <div class="flex flex-col md:flex-row gap-8 mt-4">
+            <!-- Notes Section -->
+            <div class="flex-1 bg-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 animate-fade-in-up delay-200">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-300">Notes</h2>
+                <textarea id="note-input" class="w-full h-32 p-4 mb-4 rounded-lg border border-gray-700 bg-gray-950 text-gray-200 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all resize-none" placeholder="Write your note here..."></textarea>
+                <button id="save-note-btn" class="w-full bg-sky-500 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-transform transform hover:-translate-y-0.5">
+                    Save Note
+                </button>
+                <div id="notes-container" class="mt-6 space-y-4 scrollable-content">
+                    <!-- Notes will be rendered here -->
+                </div>
+            </div>
+
+            <!-- To-Do List Section -->
+            <div class="flex-1 bg-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 animate-fade-in-up delay-300">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-300">To-Do List</h2>
+                <div class="flex gap-2 mb-4">
+                    <input type="text" id="todo-input" class="flex-1 p-3 rounded-lg border border-gray-700 bg-gray-950 text-gray-200 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all" placeholder="Add a new task...">
+                    <button id="add-todo-btn" class="bg-sky-500 text-white font-semibold py-2 px-6 rounded-lg shadow-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-transform transform hover:-translate-y-0.5">
+                        Add
+                    </button>
+                </div>
+                <div id="todos-container" class="mt-6 space-y-4 scrollable-content">
+                    <!-- To-Do items will be rendered here -->
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <!-- Toast message container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-[100] space-y-2"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const app = document.getElementById('app');
-            let pleaseCount = 0;
+    <!-- Firebase CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-            const render = (state) => {
-                switch (state) {
-                    case 'initial':
-                        app.innerHTML = `
-                            <h1 class="text-3xl font-bold text-gray-800 mb-6">Hello Chit Sone!</h1>
-                            <p class="text-xl text-gray-600 mb-8">Do you love me? ${'please '.repeat(pleaseCount)}</p>
-                            <div class="flex justify-center space-x-4">
-                                <button id="yes-btn" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors">Yes</button>
-                                <button id="no-btn" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">No</button>
-                            </div>
+        // Set log level for debugging
+        setLogLevel('Debug');
+
+        // Firestore Security Rules require app ID and user ID for public data
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // UI element references
+        const clockElement = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+        const noteInput = document.getElementById('note-input');
+        const saveNoteBtn = document.getElementById('save-note-btn');
+        const notesContainer = document.getElementById('notes-container');
+        const todoInput = document.getElementById('todo-input');
+        const addTodoBtn = document.getElementById('add-todo-btn');
+        const todosContainer = document.getElementById('todos-container');
+        const userInfoElement = document.getElementById('user-info');
+        const timerDisplay = document.getElementById('timer-display');
+        const startTimerBtn = document.getElementById('start-timer-btn');
+        const pauseTimerBtn = document.getElementById('pause-timer-btn');
+        const resetTimerBtn = document.getElementById('reset-timer-btn');
+        const weatherTempElement = document.getElementById('weather-temp');
+        const weatherDescElement = document.getElementById('weather-desc');
+        const weatherForecastElement = document.getElementById('weather-forecast');
+        const focusInput = document.getElementById('focus-input');
+        const saveFocusBtn = document.getElementById('save-focus-btn');
+        const focusDisplay = document.getElementById('focus-display');
+        const toastContainer = document.getElementById('toast-container');
+
+        let userId = null;
+        let pomodoroState = {
+            timer: null,
+            time: 1500, // 25 minutes in seconds
+            isRunning: false,
+        };
+
+        // Function to show a temporary toast message
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `p-4 rounded-lg shadow-lg text-sm text-white transition-opacity duration-300 ease-in-out transform scale-100 ${type === 'error' ? 'bg-red-500' : 'bg-green-500'}`;
+            toast.textContent = message;
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'scale-95');
+                toast.addEventListener('transitionend', () => toast.remove());
+            }, 3000);
+        }
+
+        // Authentication State Listener
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userId = user.uid;
+                userInfoElement.textContent = `Signed in as: ${userId}`;
+                console.log("User authenticated:", userId);
+                setupListeners(userId);
+            } else {
+                console.log("No user signed in. Attempting sign-in...");
+                try {
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                        console.log("Signed in with custom token.");
+                    } else {
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously.");
+                    }
+                } catch (error) {
+                    console.error("Authentication failed:", error);
+                    userInfoElement.textContent = "Authentication failed.";
+                    showToast("Authentication failed.", 'error');
+                }
+            }
+        });
+
+        // Function to update the digital clock and date
+        function updateClock() {
+            const now = new Date();
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+            clockElement.textContent = now.toLocaleTimeString('en-US', timeOptions);
+            dateElement.textContent = now.toLocaleDateString('en-US', dateOptions);
+        }
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock();
+        
+        // Weather Function
+        async function fetchWeather() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
+
+                    try {
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        
+                        // Current weather
+                        const currentTemp = data.current.temperature_2m;
+                        const currentCode = data.current.weather_code;
+                        weatherTempElement.innerHTML = `${Math.round(currentTemp)}°C`;
+                        weatherDescElement.textContent = getWeatherDescription(currentCode);
+
+                        // Daily forecast
+                        const dailyCode = data.daily.weather_code[0];
+                        const dailyTempMax = Math.round(data.daily.temperature_2m_max[0]);
+                        const dailyTempMin = Math.round(data.daily.temperature_2m_min[0]);
+                        weatherForecastElement.textContent = getDailyForecast(dailyCode, dailyTempMax, dailyTempMin);
+
+                    } catch (error) {
+                        weatherTempElement.innerHTML = `N/A`;
+                        weatherDescElement.textContent = `Could not get weather.`;
+                        weatherForecastElement.textContent = `Forecast unavailable.`;
+                        console.error('Error fetching weather:', error);
+                        showToast('Error fetching weather.', 'error');
+                    }
+                }, (error) => {
+                    weatherTempElement.innerHTML = `N/A`;
+                    weatherDescElement.textContent = `Geolocation blocked.`;
+                    weatherForecastElement.textContent = `Forecast unavailable.`;
+                    console.error('Geolocation error:', error);
+                    showToast('Geolocation is blocked.', 'error');
+                });
+            } else {
+                weatherTempElement.innerHTML = `N/A`;
+                weatherDescElement.textContent = `Geolocation not supported.`;
+                weatherForecastElement.textContent = `Forecast unavailable.`;
+                showToast('Geolocation not supported.', 'error');
+            }
+        }
+
+        // Map weather codes to descriptions (WMO Weather interpretation codes)
+        function getWeatherDescription(code) {
+            const descriptions = {
+                0: "Clear sky", 1: "Mostly clear", 2: "Partly cloudy", 3: "Overcast", 45: "Fog", 48: "Rime fog",
+                51: "Drizzle", 53: "Drizzle", 55: "Drizzle", 56: "Freezing drizzle", 57: "Freezing drizzle",
+                61: "Slight rain", 63: "Rain", 65: "Heavy rain", 66: "Freezing rain", 67: "Freezing rain",
+                71: "Slight snow fall", 73: "Snow fall", 75: "Heavy snow fall", 77: "Snow grains",
+                80: "Slight showers", 81: "Showers", 82: "Heavy showers", 85: "Slight snow showers", 86: "Snow showers",
+                95: "Thunderstorm", 96: "Thunderstorm", 99: "Thunderstorm"
+            };
+            return descriptions[code] || "Weather N/A";
+        }
+        
+        // Get daily forecast string
+        function getDailyForecast(code, tempMax, tempMin) {
+            const forecastMap = {
+                0: "Clear skies all day.", 1: "Mostly clear, pleasant day.", 2: "Partly cloudy, nice day.", 3: "Expect an overcast day.",
+                45: "It will be foggy today.", 48: "Expect freezing fog.", 51: "Light drizzle throughout the day.", 53: "Light drizzle throughout the day.", 55: "Drizzle is expected.",
+                56: "Freezing drizzle expected.", 57: "Freezing drizzle expected.", 61: "Slight chance of rain.", 63: "Expect some rain today.",
+                65: "Heavy rain is expected.", 66: "Freezing rain today.", 67: "Freezing rain today.", 71: "Slight snow fall is expected.",
+                73: "Expect snow fall today.", 75: "Heavy snow fall is expected.", 77: "Expect snow grains.", 80: "Slight showers.",
+                81: "Showers are expected.", 82: "Heavy showers are expected.", 85: "Slight snow showers.", 86: "Snow showers are expected.",
+                95: "Thunderstorms expected.", 96: "Thunderstorms expected.", 99: "Thunderstorms expected."
+            };
+            const forecastText = forecastMap[code] || "Forecast unavailable.";
+            return `${forecastText} High of ${tempMax}°C, low of ${tempMin}°C.`;
+        }
+
+        fetchWeather();
+
+        // Pomodoro Timer Functions
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        function startTimer() {
+            if (!pomodoroState.isRunning) {
+                pomodoroState.isRunning = true;
+                pomodoroState.timer = setInterval(() => {
+                    pomodoroState.time--;
+                    timerDisplay.textContent = formatTime(pomodoroState.time);
+                    if (pomodoroState.time <= 0) {
+                        clearInterval(pomodoroState.timer);
+                        pomodoroState.isRunning = false;
+                        timerDisplay.textContent = '00:00';
+                        // Add a simple message box to notify user
+                        const messageBox = document.createElement('div');
+                        messageBox.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-6 rounded-lg shadow-2xl z-50 border border-gray-700 text-center";
+                        messageBox.innerHTML = `
+                            <p class="text-xl text-white font-bold mb-4">Time's Up!</p>
+                            <button class="bg-sky-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-sky-600">Close</button>
                         `;
-                        break;
-                    case 'yes_scale':
-                        app.innerHTML = `
-                            <h1 class="text-3xl font-bold text-gray-800 mb-6">That's wonderful!</h1>
-                            <p class="text-xl text-gray-600 mb-8">How much do you love me?</p>
-                            <div class="flex justify-center space-x-2 my-4">
-                                <label class="flex flex-col items-center cursor-pointer">
-                                    <input type="radio" name="love-scale" value="1" class="hidden peer">
-                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">1</div>
-                                </label>
-                                <label class="flex flex-col items-center cursor-pointer">
-                                    <input type="radio" name="love-scale" value="2" class="hidden peer">
-                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">2</div>
-                                </label>
-                                <label class="flex flex-col items-center cursor-pointer">
-                                    <input type="radio" name="love-scale" value="3" class="hidden peer">
-                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">3</div>
-                                </label>
-                                <label class="flex flex-col items-center cursor-pointer">
-                                    <input type="radio" name="love-scale" value="4" class="hidden peer">
-                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">4</div>
-                                </label>
-                                <label class="flex flex-col items-center cursor-pointer">
-                                    <input type="radio" name="love-scale" value="5" class="hidden peer">
-                                    <div class="w-12 h-12 flex items-center justify-center bg-gray-200 peer-checked:bg-blue-600 text-gray-800 peer-checked:text-white rounded-full transition-all text-lg font-bold">5</div>
-                                </label>
-                            </div>
-                            <p id="scale-response" class="mt-4 text-lg font-semibold text-gray-700"></p>
-                        `;
-                        // Add event listeners for the new radio buttons
-                        document.querySelectorAll('input[name="love-scale"]').forEach(radio => {
-                            radio.addEventListener('change', (e) => {
-                                const value = parseInt(e.target.value);
-                                const responseEl = document.getElementById('scale-response');
-                                switch (value) {
-                                    case 1:
-                                        responseEl.textContent = "Oh, that's a start.";
-                                        break;
-                                    case 2:
-                                        responseEl.textContent = "I hope I can earn a higher score!";
-                                        break;
-                                    case 3:
-                                        responseEl.textContent = "Okay, that's pretty good!";
-                                        break;
-                                    case 4:
-                                        responseEl.textContent = "Almost perfect! I'll take it.";
-                                        break;
-                                    case 5:
-                                        responseEl.textContent = "That's incredible! I love you too!";
-                                        break;
-                                }
-                            });
+                        document.body.appendChild(messageBox);
+                        messageBox.querySelector('button').addEventListener('click', () => {
+                            messageBox.remove();
                         });
-                        break;
-                    case 'no_wrong':
-                        app.innerHTML = `
-                            <h1 class="text-3xl font-bold text-gray-800 mb-6">Oh no!</h1>
-                            <p class="text-xl text-gray-600 mb-8">Did I do anything wrong?</p>
-                            <div class="flex justify-center space-x-4">
-                                <button id="no-wrong-yes" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors">Yes</button>
-                                <button id="no-wrong-no" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">No</button>
-                            </div>
-                        `;
-                        break;
-                    case 'forgive_me':
-                        app.innerHTML = `
-                            <h1 class="text-3xl font-bold text-gray-800 mb-6">I am so sorry.</h1>
-                            <p class="text-xl text-gray-600 mb-8">Will you forgive me?</p>
-                            <div class="flex justify-center space-x-4">
-                                <button id="forgive-yes" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors">Yes</button>
-                                <button id="forgive-no" class="bg-red-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">No</button>
-                            </div>
-                        `;
-                        break;
-                    case 'final_yes':
-                        app.innerHTML = `
-                            <h1 class="text-3xl font-bold text-gray-800 mb-6">Thank you.</h1>
-                            <p class="text-xl text-gray-600 mb-8">I'll try my best not to do it again.</p>
-                        `;
-                        break;
-                    case 'final_no':
-                        app.innerHTML = `
-                            <h1 class="text-3xl font-bold text-gray-800 mb-6">I understand.</h1>
-                            <p class="text-xl text-gray-600 mb-8">I'll try to earn your trust back.</p>
-                        `;
-                        break;
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(pomodoroState.timer);
+            pomodoroState.isRunning = false;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            pomodoroState.time = 1500;
+            timerDisplay.textContent = formatTime(pomodoroState.time);
+        }
+
+        startTimerBtn.addEventListener('click', startTimer);
+        pauseTimerBtn.addEventListener('click', pauseTimer);
+        resetTimerBtn.addEventListener('click', resetTimer);
+
+        // Setup real-time listeners for Firestore data
+        function setupListeners(uid) {
+            // Notes Listener
+            const notesRef = collection(db, 'artifacts', appId, 'users', uid, 'notes');
+            onSnapshot(notesRef, (snapshot) => {
+                notesContainer.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const note = doc.data();
+                    const noteId = doc.id;
+                    const noteElement = document.createElement('div');
+                    noteElement.className = 'bg-gray-950 p-4 rounded-lg shadow-sm border border-gray-700 flex flex-col gap-2';
+                    noteElement.innerHTML = `
+                        <p class="text-gray-200 break-words">${note.text}</p>
+                        <div class="flex justify-between items-center text-xs text-gray-400 mt-2">
+                            <span>Saved: ${note.timestamp ? new Date(note.timestamp.seconds * 1000).toLocaleString() : 'N/A'}</span>
+                            <button class="delete-note-btn text-red-500 hover:text-red-700 transition-colors" data-id="${noteId}">Delete</button>
+                        </div>
+                    `;
+                    notesContainer.appendChild(noteElement);
+                });
+            });
+
+            // To-Do List Listener
+            const todosRef = collection(db, 'artifacts', appId, 'users', uid, 'todos');
+            onSnapshot(todosRef, (snapshot) => {
+                todosContainer.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const todo = doc.data();
+                    const todoId = doc.id;
+                    const li = document.createElement('div');
+                    li.className = `flex items-center gap-4 bg-gray-950 p-4 rounded-lg shadow-sm border border-gray-700 transition-colors ${todo.completed ? 'opacity-60' : ''}`;
+                    li.innerHTML = `
+                        <input type="checkbox" class="checkbox-custom" data-id="${todoId}" ${todo.completed ? 'checked' : ''}>
+                        <span class="flex-1 text-gray-200 break-words ${todo.completed ? 'line-through text-gray-500' : ''}">${todo.text}</span>
+                        <button class="delete-todo-btn text-red-500 hover:text-red-700 transition-colors" data-id="${todoId}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    `;
+                    todosContainer.appendChild(li);
+                });
+            });
+
+            // Today's Focus Listener
+            const focusRef = collection(db, 'artifacts', appId, 'users', uid, 'focus');
+            onSnapshot(focusRef, (snapshot) => {
+                if (!snapshot.empty) {
+                    const focusDoc = snapshot.docs[0];
+                    const focusText = focusDoc.data().text;
+                    focusDisplay.textContent = focusText;
+                    focusInput.value = focusText;
+                } else {
+                    focusDisplay.textContent = "";
                 }
-            };
+            });
+        }
 
-            const handleClick = (e) => {
-                const id = e.target.id;
-                switch (id) {
-                    case 'yes-btn':
-                        render('yes_scale');
-                        break;
-                    case 'no-btn':
-                        render('no_wrong');
-                        break;
-                    case 'no-wrong-yes':
-                        render('forgive_me');
-                        break;
-                    case 'no-wrong-no':
-                        pleaseCount++;
-                        render('initial');
-                        break;
-                    case 'forgive-yes':
-                        render('final_yes');
-                        break;
-                    case 'forgive-no':
-                        render('final_no');
-                        break;
+        // Event listeners for notes section
+        saveNoteBtn.addEventListener('click', async () => {
+            const noteText = noteInput.value.trim();
+            if (noteText && userId) {
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'users', userId, 'notes'), {
+                        text: noteText,
+                        timestamp: serverTimestamp()
+                    });
+                    noteInput.value = '';
+                    showToast("Note saved successfully!");
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    showToast("Failed to save note. Please check your connection.", 'error');
                 }
-            };
+            } else {
+                console.log("Note text is empty or user not authenticated.");
+            }
+        });
 
-            // Use event delegation on the main app container
-            app.addEventListener('click', handleClick);
+        notesContainer.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('delete-note-btn')) {
+                const noteId = e.target.dataset.id;
+                try {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'notes', noteId));
+                    showToast("Note deleted successfully!");
+                } catch (e) {
+                    console.error("Error deleting document: ", e);
+                    showToast("Failed to delete note.", 'error');
+                }
+            }
+        });
 
-            // Initial render
-            render('initial');
+        // Event listeners for to-do section
+        addTodoBtn.addEventListener('click', async () => {
+            const todoText = todoInput.value.trim();
+            if (todoText && userId) {
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'users', userId, 'todos'), {
+                        text: todoText,
+                        completed: false,
+                        timestamp: serverTimestamp()
+                    });
+                    todoInput.value = '';
+                    showToast("Task added successfully!");
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    showToast("Failed to add task.", 'error');
+                }
+            } else {
+                console.log("To-do text is empty or user not authenticated.");
+            }
+        });
+
+        todosContainer.addEventListener('change', async (e) => {
+            if (e.target.type === 'checkbox') {
+                const todoId = e.target.dataset.id;
+                const completed = e.target.checked;
+                try {
+                    await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'todos', todoId), {
+                        completed: completed
+                    });
+                    showToast("Task updated successfully!");
+                } catch (e) {
+                    console.error("Error updating document: ", e);
+                    showToast("Failed to update task.", 'error');
+                }
+            }
+        });
+
+        todosContainer.addEventListener('click', async (e) => {
+            if (e.target.closest('.delete-todo-btn')) {
+                const todoId = e.target.closest('.delete-todo-btn').dataset.id;
+                try {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'todos', todoId));
+                    showToast("Task deleted successfully!");
+                } catch (e) {
+                    console.error("Error deleting document: ", e);
+                    showToast("Failed to delete task.", 'error');
+                }
+            }
+        });
+
+        // Event listener for today's focus
+        saveFocusBtn.addEventListener('click', async () => {
+            const focusText = focusInput.value.trim();
+            if (focusText && userId) {
+                try {
+                    const focusCollection = collection(db, 'artifacts', appId, 'users', userId, 'focus');
+                    const existingFocus = await getDocs(focusCollection);
+                    if (!existingFocus.empty) {
+                        const focusDocId = existingFocus.docs[0].id;
+                        await updateDoc(doc(focusCollection, focusDocId), { text: focusText, timestamp: serverTimestamp() });
+                    } else {
+                        await addDoc(focusCollection, { text: focusText, timestamp: serverTimestamp() });
+                    }
+                    showToast("Focus updated successfully!");
+                } catch (e) {
+                    console.error("Error saving focus: ", e);
+                    showToast("Failed to save focus.", 'error');
+                }
+            } else {
+                console.log("Focus text is empty or user not authenticated.");
+            }
         });
     </script>
 
