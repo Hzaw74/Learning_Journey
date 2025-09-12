@@ -60,7 +60,7 @@
         }
     </style>
 </head>
-<body class="p-8 md:p-12 text-gray-200">
+<body class="p-4 md:p-8 text-gray-200">
 
     <!-- Main Container -->
     <div class="flex flex-col gap-8 max-w-7xl mx-auto">
@@ -70,7 +70,7 @@
 
         <!-- User ID Display -->
         <div id="user-info" class="bg-gray-900 p-4 rounded-xl shadow-inner text-sm text-center font-mono break-all mb-4">
-            Loading user...
+            Initializing app...
         </div>
 
         <!-- Main Info Card: Clock, Weather, and Timer -->
@@ -125,7 +125,7 @@
             <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-300 text-center">Today's Focus</h2>
             <div id="focus-display" class="w-full text-center text-4xl italic text-sky-400 font-bold mb-4">
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-col sm:flex-row gap-2">
                 <input type="text" id="focus-input" class="flex-1 p-3 rounded-lg border border-gray-700 bg-gray-950 text-gray-200 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all" placeholder="Enter today's main goal...">
                 <button id="save-focus-btn" class="bg-teal-500 text-white font-semibold py-2 px-6 rounded-lg shadow-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-transform transform hover:-translate-y-0.5">
                     Save
@@ -150,7 +150,7 @@
             <!-- To-Do List Section -->
             <div class="flex-1 bg-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 animate-fade-in-up delay-300">
                 <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-300">To-Do List</h2>
-                <div class="flex gap-2 mb-4">
+                <div class="flex flex-col sm:flex-row gap-2 mb-4">
                     <input type="text" id="todo-input" class="flex-1 p-3 rounded-lg border border-gray-700 bg-gray-950 text-gray-200 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all" placeholder="Add a new task...">
                     <button id="add-todo-btn" class="bg-sky-500 text-white font-semibold py-2 px-6 rounded-lg shadow-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-transform transform hover:-translate-y-0.5">
                         Add
@@ -165,6 +165,14 @@
     
     <!-- Toast message container -->
     <div id="toast-container" class="fixed top-4 right-4 z-[100] space-y-2"></div>
+    
+    <!-- Custom Modal for Alerts -->
+    <div id="alert-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-2xl z-50 border border-gray-700 text-center">
+            <p id="alert-message" class="text-xl text-white font-bold mb-4"></p>
+            <button id="alert-close-btn" class="bg-sky-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-sky-600">Close</button>
+        </div>
+    </div>
 
     <!-- Firebase CDN -->
     <script type="module">
@@ -180,11 +188,6 @@
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
 
         // UI element references
         const clockElement = document.getElementById('clock');
@@ -207,6 +210,9 @@
         const saveFocusBtn = document.getElementById('save-focus-btn');
         const focusDisplay = document.getElementById('focus-display');
         const toastContainer = document.getElementById('toast-container');
+        const alertModal = document.getElementById('alert-modal');
+        const alertMessage = document.getElementById('alert-message');
+        const alertCloseBtn = document.getElementById('alert-close-btn');
 
         let userId = null;
         let pomodoroState = {
@@ -227,31 +233,59 @@
                 toast.addEventListener('transitionend', () => toast.remove());
             }, 3000);
         }
-
-        // Authentication State Listener
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                userId = user.uid;
-                userInfoElement.textContent = `Signed in as: ${userId}`;
-                console.log("User authenticated:", userId);
-                setupListeners(userId);
-            } else {
-                console.log("No user signed in. Attempting sign-in...");
-                try {
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                        console.log("Signed in with custom token.");
-                    } else {
-                        await signInAnonymously(auth);
-                        console.log("Signed in anonymously.");
-                    }
-                } catch (error) {
-                    console.error("Authentication failed:", error);
-                    userInfoElement.textContent = "Authentication failed.";
-                    showToast("Authentication failed.", 'error');
-                }
-            }
+        
+        // Function to show a custom modal alert
+        function showAlert(message) {
+            alertMessage.textContent = message;
+            alertModal.classList.remove('hidden');
+        }
+        
+        alertCloseBtn.addEventListener('click', () => {
+            alertModal.classList.add('hidden');
         });
+
+        // App Initialization
+        async function initializeAppAndAuth() {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.error("Firebase config is empty. Please check your setup.");
+                    showAlert("Firebase configuration not found. Please contact support.");
+                    return;
+                }
+                const app = initializeApp(firebaseConfig);
+                const db = getFirestore(app);
+                const auth = getAuth(app);
+
+                // Authentication with timeout
+                const authPromise = new Promise((resolve, reject) => {
+                    const unsubscribe = onAuthStateChanged(auth, user => {
+                        unsubscribe();
+                        resolve(user);
+                    });
+                    setTimeout(() => reject(new Error("Authentication timeout.")), 10000);
+                });
+
+                const user = await authPromise;
+                if (user) {
+                    userId = user.uid;
+                    userInfoElement.textContent = `Signed in as: ${userId}`;
+                    console.log("User authenticated:", userId);
+                    setupListeners(db, userId);
+                } else {
+                    userInfoElement.textContent = "Authentication failed.";
+                    console.log("No user signed in. Attempting sign-in...");
+                    await (initialAuthToken ? signInWithCustomToken(auth, initialAuthToken) : signInAnonymously(auth));
+                    // The onAuthStateChanged listener above will handle the result.
+                }
+
+            } catch (error) {
+                console.error("Initialization error:", error);
+                userInfoElement.textContent = `Authentication failed.`;
+                showAlert("Failed to connect to the database. Please check your network connection.");
+            }
+        }
+        
+        initializeAppAndAuth();
 
         // Function to update the digital clock and date
         function updateClock() {
@@ -269,47 +303,40 @@
         
         // Weather Function
         async function fetchWeather() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
+            const geolocationPromise = new Promise((resolve, reject) => {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 });
+                } else {
+                    reject(new Error("Geolocation not supported."));
+                }
+            });
 
-                    try {
-                        const response = await fetch(url);
-                        const data = await response.json();
-                        
-                        // Current weather
-                        const currentTemp = data.current.temperature_2m;
-                        const currentCode = data.current.weather_code;
-                        weatherTempElement.innerHTML = `${Math.round(currentTemp)}°C`;
-                        weatherDescElement.textContent = getWeatherDescription(currentCode);
+            try {
+                const position = await geolocationPromise;
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                // Current weather
+                const currentTemp = data.current.temperature_2m;
+                const currentCode = data.current.weather_code;
+                weatherTempElement.innerHTML = `${Math.round(currentTemp)}°C`;
+                weatherDescElement.textContent = getWeatherDescription(currentCode);
 
-                        // Daily forecast
-                        const dailyCode = data.daily.weather_code[0];
-                        const dailyTempMax = Math.round(data.daily.temperature_2m_max[0]);
-                        const dailyTempMin = Math.round(data.daily.temperature_2m_min[0]);
-                        weatherForecastElement.textContent = getDailyForecast(dailyCode, dailyTempMax, dailyTempMin);
+                // Daily forecast
+                const dailyCode = data.daily.weather_code[0];
+                const dailyTempMax = Math.round(data.daily.temperature_2m_max[0]);
+                const dailyTempMin = Math.round(data.daily.temperature_2m_min[0]);
+                weatherForecastElement.textContent = getDailyForecast(dailyCode, dailyTempMax, dailyTempMin);
 
-                    } catch (error) {
-                        weatherTempElement.innerHTML = `N/A`;
-                        weatherDescElement.textContent = `Could not get weather.`;
-                        weatherForecastElement.textContent = `Forecast unavailable.`;
-                        console.error('Error fetching weather:', error);
-                        showToast('Error fetching weather.', 'error');
-                    }
-                }, (error) => {
-                    weatherTempElement.innerHTML = `N/A`;
-                    weatherDescElement.textContent = `Geolocation blocked.`;
-                    weatherForecastElement.textContent = `Forecast unavailable.`;
-                    console.error('Geolocation error:', error);
-                    showToast('Geolocation is blocked.', 'error');
-                });
-            } else {
+            } catch (error) {
                 weatherTempElement.innerHTML = `N/A`;
-                weatherDescElement.textContent = `Geolocation not supported.`;
+                weatherDescElement.textContent = `Could not get weather.`;
                 weatherForecastElement.textContent = `Forecast unavailable.`;
-                showToast('Geolocation not supported.', 'error');
+                console.error('Error fetching weather:', error);
+                showToast('Error fetching weather.', 'error');
             }
         }
 
@@ -392,7 +419,7 @@
         resetTimerBtn.addEventListener('click', resetTimer);
 
         // Setup real-time listeners for Firestore data
-        function setupListeners(uid) {
+        function setupListeners(db, uid) {
             // Notes Listener
             const notesRef = collection(db, 'artifacts', appId, 'users', uid, 'notes');
             onSnapshot(notesRef, (snapshot) => {
@@ -454,6 +481,7 @@
             const noteText = noteInput.value.trim();
             if (noteText && userId) {
                 try {
+                    const db = getFirestore(initializeApp(firebaseConfig));
                     await addDoc(collection(db, 'artifacts', appId, 'users', userId, 'notes'), {
                         text: noteText,
                         timestamp: serverTimestamp()
@@ -473,6 +501,7 @@
             if (e.target.classList.contains('delete-note-btn')) {
                 const noteId = e.target.dataset.id;
                 try {
+                    const db = getFirestore(initializeApp(firebaseConfig));
                     await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'notes', noteId));
                     showToast("Note deleted successfully!");
                 } catch (e) {
@@ -487,6 +516,7 @@
             const todoText = todoInput.value.trim();
             if (todoText && userId) {
                 try {
+                    const db = getFirestore(initializeApp(firebaseConfig));
                     await addDoc(collection(db, 'artifacts', appId, 'users', userId, 'todos'), {
                         text: todoText,
                         completed: false,
@@ -508,6 +538,7 @@
                 const todoId = e.target.dataset.id;
                 const completed = e.target.checked;
                 try {
+                    const db = getFirestore(initializeApp(firebaseConfig));
                     await updateDoc(doc(db, 'artifacts', appId, 'users', userId, 'todos', todoId), {
                         completed: completed
                     });
@@ -523,6 +554,7 @@
             if (e.target.closest('.delete-todo-btn')) {
                 const todoId = e.target.closest('.delete-todo-btn').dataset.id;
                 try {
+                    const db = getFirestore(initializeApp(firebaseConfig));
                     await deleteDoc(doc(db, 'artifacts', appId, 'users', userId, 'todos', todoId));
                     showToast("Task deleted successfully!");
                 } catch (e) {
@@ -537,6 +569,7 @@
             const focusText = focusInput.value.trim();
             if (focusText && userId) {
                 try {
+                    const db = getFirestore(initializeApp(firebaseConfig));
                     const focusCollection = collection(db, 'artifacts', appId, 'users', userId, 'focus');
                     const existingFocus = await getDocs(focusCollection);
                     if (!existingFocus.empty) {
