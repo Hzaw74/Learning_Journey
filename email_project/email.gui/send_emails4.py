@@ -563,6 +563,12 @@ def select_file(kind, tab_id):
 # ==============================
 # GUI Build
 # ==============================
+def update_recipient_count(tab_id):
+    txt = cv_tabs[tab_id]["recipients"]
+    content = txt.get("1.0", tk.END)
+    valid, _ = parse_recipients(content)
+    cv_tabs[tab_id]["recipient_count_var"].set(f"Count: {len(valid)}")
+
 def build_gui():
     global root, entry_email, entry_password, status_label
     global sent_email_count_var, daily_count_var, limit_var
@@ -625,10 +631,15 @@ def build_gui():
         subject.pack(fill="x", padx=10, pady=2)
         subject.bind("<KeyRelease>", lambda e, t=tab_id: schedule_save(t))
 
-        # Body
+        # Body with scrollbar
         tk.Label(frame, text="Body:", bg="#1f1f1f", fg="white").pack(anchor="w", padx=10, pady=(10, 2))
-        body = tk.Text(frame, width=90, height=8, bg="#2b2b2b", fg="white", insertbackground="white")
-        body.pack(fill="both", padx=10, pady=2)
+        body_frame = tk.Frame(frame, bg="#1f1f1f")
+        body_frame.pack(fill="both", padx=10, pady=2)
+        body_scroll = tk.Scrollbar(body_frame)
+        body_scroll.pack(side="right", fill="y")
+        body = tk.Text(body_frame, width=90, height=8, bg="#2b2b2b", fg="white", insertbackground="white", yscrollcommand=body_scroll.set)
+        body.pack(side="left", fill="both", expand=True)
+        body_scroll.config(command=body.yview)
         body.bind("<KeyRelease>", lambda e, t=tab_id: schedule_save(t))
 
         # Files
@@ -639,12 +650,25 @@ def build_gui():
         tk.Button(f_frame, text="Select Cover Letter (optional)", command=lambda t=tab_id: select_file("cover", t),
                   bg="#34495e", fg="white").pack(side="left", padx=6)
 
-        # Recipients
-        tk.Label(frame, text="Recipients (one per line: email,position):",
-                 bg="#1f1f1f", fg="white").pack(anchor="w", padx=10, pady=(10, 2))
-        recipients = tk.Text(frame, width=90, height=8, bg="#2b2b2b", fg="white", insertbackground="white")
-        recipients.pack(fill="both", padx=10, pady=2)
-        recipients.bind("<KeyRelease>", lambda e, t=tab_id: schedule_save(t))
+        # Recipients with scrollbar and count
+        rec_label_frame = tk.Frame(frame, bg="#1f1f1f")
+        rec_label_frame.pack(fill="x", padx=10, pady=(10, 2))
+        tk.Label(rec_label_frame, text="Recipients (one per line: email,position):",
+                 bg="#1f1f1f", fg="white").pack(side="left")
+        recipient_count_var = tk.StringVar(value="Count: 0")
+        tk.Label(rec_label_frame, textvariable=recipient_count_var, bg="#1f1f1f", fg="cyan").pack(side="left", padx=(12,0))
+
+        rec_frame = tk.Frame(frame, bg="#1f1f1f")
+        rec_frame.pack(fill="both", padx=10, pady=2)
+        rec_scroll = tk.Scrollbar(rec_frame)
+        rec_scroll.pack(side="right", fill="y")
+        recipients = tk.Text(rec_frame, width=90, height=8, bg="#2b2b2b", fg="white", insertbackground="white", yscrollcommand=rec_scroll.set)
+        recipients.pack(side="left", fill="both", expand=True)
+        rec_scroll.config(command=recipients.yview)
+        def on_recipients_change(event, t=tab_id):
+            schedule_save(t)
+            update_recipient_count(t)
+        recipients.bind("<KeyRelease>", on_recipients_change)
 
         # Recipient tools
         rtools = tk.Frame(frame, bg="#1f1f1f")
@@ -665,11 +689,16 @@ def build_gui():
         tk.Button(act, text="Stop", command=stop_sending,
                   bg="#c0392b", fg="white").pack(side="left", padx=4)
 
-        # Progress + Log
+        # Progress + Log with scrollbar
         prog = ttk.Progressbar(frame, orient="horizontal", mode="determinate", length=980)
         prog.pack(fill="x", padx=10, pady=(2, 6))
-        log = tk.Text(frame, width=120, height=12, bg="#1e1e1e", fg="white", insertbackground="white")
-        log.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+        log_frame = tk.Frame(frame, bg="#1f1f1f")
+        log_frame.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+        log_scroll = tk.Scrollbar(log_frame)
+        log_scroll.pack(side="right", fill="y")
+        log = tk.Text(log_frame, width=120, height=12, bg="#1e1e1e", fg="white", insertbackground="white", yscrollcommand=log_scroll.set)
+        log.pack(side="left", fill="both", expand=True)
+        log_scroll.config(command=log.yview)
 
         cv_tabs[tab_id] = {
             "frame": frame,
@@ -682,6 +711,7 @@ def build_gui():
             "log": log,
             "check_btn": btn_check,
             "remove_btn": btn_remove,
+            "recipient_count_var": recipient_count_var,
         }
 
     # ------------- Status Bar -------------
@@ -695,6 +725,7 @@ def build_gui():
     load_global()
     for t in CV_FILES:
         load_cv(t)
+        update_recipient_count(t)
 
     return root
 
