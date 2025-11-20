@@ -3,13 +3,95 @@
 <html lang="eng">
     <head>
         <title>CSS Practice</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                /* Comment */                
+                color: rgb(0, 0, 0);
+                background-image: -moz-linear-gradient(to right bottom, #f3fdff, #a7dae3);
+            }
+
+            h1 {
+                font-family: 'Courier New', Courier, monospace;   
+            }
+
+            #text {
+                margin-top: 5rem;
+                margin-left: 5rem;
+                margin-right: 5rem;
+                margin-bottom: 2.5rem;
+                max-width: 85%;
+                font-size: 16pt;
+                text-align: center;
+                font-family:'Times New Roman', Times, serif, italic;
+            }
+            
+        </style>
     </head>
 
     <body>
-        <h1>CSS Practice</h1>
+        <h1 class="text-center mt-5">CSS Practice</h1>
 
         <hr>
 
-        
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img src="assets/beach.jpg" class="card-img-top" height="400">
+                        <div class="card-body">
+                            <h5 class="card-title">The Beach</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="https://unsplash.com/photos/lighthouse-overlooking-the-ocean-at-sunset-JeGbEkarsZA" target="_blank" class="btn btn-primary">Link to image</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img src="assets/castle.jpg" class="card-img-top" height="400">
+                        <div class="card-body">
+                            <h5 class="card-title">The Castle</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="https://unsplash.com/photos/lighthouse-overlooking-the-ocean-at-sunset-JeGbEkarsZA" target="_blank" class="btn btn-primary">Link to image</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img src="assets/leo_visions-JeGbEkarsZA-unsplash.jpg" class="card-img-top" height="400">
+                        <div class="card-body">
+                            <h5 class="card-title">The Lighthouse</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="https://unsplash.com/photos/lighthouse-overlooking-the-ocean-at-sunset-JeGbEkarsZA" target="_blank" class="btn btn-primary">Link to image</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="text" class="mt-4">
+                    <p>
+                        When using display: grid or display: flex, you can make use of gap utilities on the parent element. This can save on having to add margin utilities to individual children of a grid or flex container. Gap utilities are responsive by default, and are generated via our utilities API, based on the $spacers Sass map.
+                    </p>
+                </div>
+                
+                <div>
+                    <p style="color: rgb(146, 83, 0); font-family:Georgia, 'Times New Roman', Times, serif; text-align: center; margin-top: 30px; font-size: 12pt; word-spacing: 6px; letter-spacing: 1.5px; line-height: 2;">
+                        Bootstrap includes a wide range of shorthand responsive margin, padding, and gap utility classes to modify an element’s appearance.
+                        Assign responsive-friendly margin or padding values to an element or a subset of its sides with shorthand classes. 
+                        Includes support for individual properties, all properties, and vertical and horizontal properties. Classes are built from a default Sass map ranging from .25rem to 3rem.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
