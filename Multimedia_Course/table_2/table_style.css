@@ -1,0 +1,21 @@
+caption {
+    padding-bottom: 2%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18pt;
+}
+
+table {
+    width: 80%;
+}
+
+tr, th, td, table {
+    border: 1px solid;
+}
+
+th {
+    padding: 3%;
+}
+
+tr, td {
+    padding: 2%;
+}

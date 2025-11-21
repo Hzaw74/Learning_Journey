@@ -1,0 +1,34 @@
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+table {
+    width: 80%;
+    background-color: lightblue;
+}
+
+th {
+    background-color: lightpink;
+    padding: 2%;
+}
+
+td {
+    padding: 2%;
+}
+
+tr, th, td, table {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+caption {
+    font-size: 18pt;
+    color: darkgreen;
+    caption-side: bottom;
+    padding-top: 2%;
+}
+
+#purple {
+    background-color: rgb(231, 192, 255);
+}
