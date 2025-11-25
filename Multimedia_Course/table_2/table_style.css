@@ -1,19 +1,29 @@
+h1 {
+    text-align: center;
+}
+
 caption {
+    padding-top: 2%;
     padding-bottom: 2%;
-    font-family: 'Courier New', Courier, monospace;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 18pt;
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 table {
-    width: 80%;
+    width: 70%;
+    margin: 0 auto;
 }
 
 tr, th, td, table {
     border: 1px solid;
+    border-collapse: collapse;
 }
 
 th {
-    padding: 3%;
+    padding: 3%;;
+    background-color: lightblue;
 }
 
 tr, td {
