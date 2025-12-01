@@ -1,0 +1,45 @@
+h1 {
+    text-align: center;
+    color: rgb(99, 80, 51);
+    font-family: "Arial";
+}
+
+fieldset {
+    border: 2px solid;
+    color: rgb(99, 80, 51);
+    width: 50%;
+    margin: auto;
+}
+
+legend {
+    font-size: 16pt;
+    color:rgb(99, 80, 51);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+}
+
+label, input {
+    font-size: 12pt;
+    color: rgb(99, 80, 51);
+    font-family: Arial, Helvetica, sans-serif;
+    /* border: 2px solid; */
+    width: 150px;
+    display: inline-block;
+    text-align: left;
+}
+
+input[type=radio], [type=checkbox] {
+    width: 25px;
+}
+
+input[type=submit], [type=reset] {
+    width: 80px;
+    background-color: rgb(255, 246, 232);
+    color: rgb(99, 80, 51);
+    font-weight: bold;
+    font-size: 10pt;
+    text-align: center;
+    border-radius: 15%;
+    border: 2px solid;
+    padding: auto;
+}
