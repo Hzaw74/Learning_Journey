@@ -1,0 +1,17 @@
+body {
+  /* 1. Define the Layout */
+  display: grid;
+  place-items: center;     /* Short for align-items + justify-items */
+
+  /* 2. Fix the Height */
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+video {
+    width: 50%;
+}

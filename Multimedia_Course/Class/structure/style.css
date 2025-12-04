@@ -1,0 +1,43 @@
+.center {
+    text-align: center;
+}
+
+.border {
+    border: 1px solid gray;
+}
+
+.padding {
+    padding: 1em;
+    margin: 1emx;
+}
+
+header, footer, nav {
+    background-color: rgb(24, 72, 56);
+    color: white;
+    clear: left;
+}
+
+A {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}
+
+A:hover {
+    background-color: lightcyan;
+    color: darkslategray;
+    font-weight: bold;
+}
+
+section {
+    width: 8px;
+    margin: 1px;
+    padding: 1em;
+    float: left;
+}
+
+article {
+    margin-left: 600px;
+    width: 1000px;
+    height: 1000px;
+}

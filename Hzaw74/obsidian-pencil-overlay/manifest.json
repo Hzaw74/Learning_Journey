@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-pencil-overlay",
+	"name": "Pencil Overlay",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Draw over your notes using Apple Pencil or pointer events.",
+	"author": "Antigravity",
+	"authorUrl": "https://github.com/hzaw74",
+	"isDesktopOnly": false
+}
