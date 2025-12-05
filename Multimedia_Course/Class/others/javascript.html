@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script>
-            
-        </script>
-
         <title>Web with JavaScript</title>
     </head>
     <body>
         <h1>Introduction to JavaScript</h1>
+        <hr>
+        <script>
+            // let date = new Date();
+            // document.write("Today date: " + date);
+
+            // let hours = date.getHours();
+
+            // let name = prompt("What is your name?")
+            // document.write("<br>Welcome " + name);
+
+            // if(hours < 12)
+            // {
+            //     alert("Good Moring, " + name);
+            // }
+            // else
+            // {
+            //     alert("Good Afternoon, ", name);
+            // }
+
+            // alert("Welcome to my website");
+
+            // alert("7+8+9");
+            // alert(7+8+9);
+
+            let R = 0;
+            do
+            {
+                R = prompt("Enter radius: ");
+            }
+            while(R <= 0)
+            {
+                alert("Enter a positive number!");
+            }
+
+            let rad = parseInt(R);
+            let area = Math.PI*rad*rad;
+            alert("Area of circle is " + area);
+        </script>
     </body>
 </html>

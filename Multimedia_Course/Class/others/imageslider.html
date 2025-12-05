@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .center {
+                display: grid;
+                place-items: center;
+            }
+        </style>
+        <script>
+            let count=0;
+            image=[];
+            image[0]="../assets/castle.jpg";
+            image[1]="../assets/mountain.jpg";
+            image[2]="../assets/door.jpg";
+            image[3]="../assets/beach.jpg";
+
+            function changeImage() {
+                document.getElementById('slider').src = image[count];
+                if(count < image.length - 1) {
+                    count++;
+                }
+                else {
+                    count = 0;
+                }
+
+                setTimeout(changeImage, 1000);
+            }
+        </script>
+        <title>Image Slider</title>
+    </head>
+    <body onload="changeImage()">
+        <div class="center">
+            <img id="slider" height="300" width="400">
+        </div>
+    </body> 
+</html>
