@@ -1,98 +1,64 @@
-/* 
-   Student Name: [Your Name Here]
-   Course: Web Development 101
-   Assignment: Hotel Website Project
-*/
-
-/* Smooth Scroll via CSS */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Reset & Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Basic Styles */
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f8f5f2;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
 }
 
 a {
     text-decoration: none;
     color: inherit;
-    transition: color 0.3s ease;
-}
-
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    display: block;
 }
 
 /* Layout Utilities */
 .container {
-    max-width: 1200px;
+    width: 1000px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 20px;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 30px;
 }
 
 .section-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-family: 'Times New Roman', serif;
+    font-size: 36px;
     color: #0f172a;
     /* Deep Navy */
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 }
 
 .btn {
     display: inline-block;
-    padding: 1rem 2rem;
+    padding: 15px 30px;
     background-color: #D4AF37;
     /* Gold */
     color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
+    font-weight: bold;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
     background-color: #b5952f;
 }
 
-.btn-outline {
-    background-color: transparent;
-    border: 2px solid #D4AF37;
-    color: #D4AF37;
-}
-
-.btn-outline:hover {
-    background-color: #D4AF37;
-    color: #ffffff;
-}
-
 /* Header & Navigation */
 header {
     background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    border-bottom: 2px solid #eee;
 }
 
 nav {
@@ -103,33 +69,36 @@ nav {
 }
 
 .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-family: 'Times New Roman', serif;
+    font-size: 24px;
+    font-weight: bold;
     color: #0f172a;
-    letter-spacing: 2px;
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+}
+
+.nav-links li {
+    margin-left: 20px;
 }
 
 .nav-links a {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: bold;
     color: #0f172a;
+    text-transform: uppercase;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: #D4AF37;
+    text-decoration: underline;
 }
 
 /* Hero Section */
 .hero {
-    height: 80vh;
+    height: 400px;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -137,124 +106,98 @@ nav {
     justify-content: center;
     text-align: center;
     color: #ffffff;
-    position: relative;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
 }
 
 .hero-content h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    font-family: 'Times New Roman', serif;
+    font-size: 48px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px #000;
 }
 
 .hero-content p {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px #000;
 }
 
 /* Sections */
 section {
-    padding: 5rem 0;
+    padding: 40px 0;
 }
 
 /* Footer */
 footer {
     background-color: #0f172a;
     color: #ffffff;
-    padding: 4rem 0 2rem;
+    padding: 40px 0;
 }
 
 .footer-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-col {
+    width: 30%;
 }
 
 .footer-col h3 {
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 1.5rem;
+    font-family: 'Times New Roman', serif;
+    margin-bottom: 15px;
     color: #D4AF37;
 }
 
 .footer-col ul li {
-    margin-bottom: 0.8rem;
-}
-
-.footer-col ul li a:hover {
-    color: #D4AF37;
-}
-
-.copyright {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
-    color: #ccc;
+    margin-bottom: 10px;
 }
 
 /* Simple Image Viewer (Replaced Slider) */
 .image-viewer {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 }
 
 .image-viewer img {
-    width: 100%;
-    max-height: 500px;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px #ccc;
+    height: 400px;
     object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 1rem;
 }
 
 .viewer-controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+    margin-top: 10px;
 }
 
 .control-btn {
-    padding: 0.5rem 1.5rem;
+    padding: 10px 20px;
     background: #0f172a;
     color: #fff;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-}
-
-.control-btn:hover {
-    background: #D4AF37;
+    font-size: 16px;
+    margin: 5px;
 }
 
 /* Room Details Layout */
 .room-details-section {
-    padding: 3rem 0;
+    padding: 20px 0;
 }
 
 .room-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
 }
 
 .room-info-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
+    display: flex;
+    gap: 40px;
+}
+
+.room-description {
+    width: 65%;
+}
+
+.room-sidebar {
+    width: 35%;
 }
