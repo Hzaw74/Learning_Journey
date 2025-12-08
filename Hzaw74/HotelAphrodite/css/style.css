@@ -201,3 +201,8 @@ footer {
 .room-sidebar {
     width: 35%;
 }
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+}
