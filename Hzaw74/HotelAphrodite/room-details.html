@@ -1,3 +1,9 @@
+<!-- 
+    Student Name: [Your Name]
+    Student ID: [123456]
+    Course: Web Development 101
+    Assignment: Hotel Website
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,9 +33,6 @@
                     <li><a href="offers.html">Offers</a></li>
                     <li><a href="about.html">About</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span>&#9776;</span>
-                </div>
             </nav>
         </div>
     </header>
@@ -41,19 +44,16 @@
 
             <div class="room-header">
                 <h1 id="room-title">Room Title</h1>
-                <p id="room-price" style="font-size: 1.5rem; color: var(--primary-color); font-weight: 700;">$000 <span
+                <p id="room-price" style="font-size: 1.5rem; color: #D4AF37; font-weight: 700;">$000 <span
                         style="font-size: 1rem; color: #666; font-weight: 400;">/ night</span></p>
             </div>
 
-            <!-- Image Slider -->
-            <div class="slider-container">
-                <div class="slider" id="room-slider">
-                    <!-- Images will be injected here by JS -->
-                </div>
-                <button class="slider-btn prev-btn" id="prev-btn">&#10094;</button>
-                <button class="slider-btn next-btn" id="next-btn">&#10095;</button>
-                <div class="slider-dots" id="slider-dots">
-                    <!-- Dots will be injected here by JS -->
+            <!-- Simple Image Viewer -->
+            <div class="image-viewer">
+                <img id="room-img" src="" alt="Room Image">
+                <div class="viewer-controls">
+                    <button class="control-btn" id="prev-btn">Previous Image</button>
+                    <button class="control-btn" id="next-btn">Next Image</button>
                 </div>
             </div>
 

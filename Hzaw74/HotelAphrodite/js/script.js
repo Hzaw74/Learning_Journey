@@ -1,63 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
-    /* ====================
-       Navigation Toggle
-       ==================== */
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+// Wait for document to load
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('Page loaded');
 
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    }
-
-    /* ====================
-       Smooth Scrolling
-       ==================== */
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    /* ====================
-       Scroll Animations
-       ==================== */
-    const observerOptions = {
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(section);
-    });
-
-    /* ====================
-       Room Details & Slider
-       ==================== */
-    const roomData = {
+    // Room Data
+    // Storing details for each room type
+    let roomData = {
         'deluxe': {
             title: 'Deluxe Room',
             price: '$250',
-            description: 'A perfect blend of comfort and style, featuring a king-sized bed, city views, and a marble bathroom with a rain shower. Ideal for business travelers and couples looking for a sophisticated retreat in the heart of the city.',
-            amenities: ['40 m²', 'King Bed', 'City View', 'Free Wi-Fi', 'Smart TV', 'Mini Bar', 'Rain Shower', 'Coffee Maker'],
+            description: 'A perfect blend of comfort and style, featuring a king-sized bed, city views, and a marble bathroom with a rain shower.',
+            amenities: ['40 m²', 'King Bed', 'City View', 'Free Wi-Fi', 'Smart TV', 'Mini Bar'],
             images: [
                 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
                 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
@@ -67,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'suite': {
             title: 'Executive Suite',
             price: '$450',
-            description: 'Elevate your stay with a separate living area, executive lounge access, and premium bath amenities. The Executive Suite offers a spacious environment for work and relaxation, with stunning views of the ocean.',
-            amenities: ['65 m²', 'King Bed', 'Ocean View', 'Lounge Access', 'Bathtub', 'Work Desk', 'Separate Living Room', 'Premium Toiletries'],
+            description: 'Elevate your stay with a separate living area, executive lounge access, and premium bath amenities.',
+            amenities: ['65 m²', 'King Bed', 'Ocean View', 'Lounge Access', 'Bathtub', 'Work Desk'],
             images: [
                 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
                 'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
@@ -78,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'family': {
             title: 'Family Studio',
             price: '$350',
-            description: 'Spacious accommodation designed for families, featuring two queen beds and a kitchenette. This studio provides a home-away-from-home experience with plenty of space for everyone to relax.',
-            amenities: ['55 m²', '2 Queen Beds', 'Garden View', 'Kitchenette', 'Gaming Console', 'Kids Area', 'Dining Table', 'Microwave'],
+            description: 'Spacious accommodation designed for families, featuring two queen beds and a kitchenette.',
+            amenities: ['55 m²', '2 Queen Beds', 'Garden View', 'Kitchenette', 'Gaming Console', 'Kids Area'],
             images: [
                 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
                 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
@@ -89,8 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'villa': {
             title: 'Ocean View Villa',
             price: '$800',
-            description: 'A private sanctuary with direct beach access, private pool, and stunning sunset views. The Ocean View Villa is the epitome of luxury island living, offering complete privacy and exclusive services.',
-            amenities: ['120 m²', 'King Bed', 'Ocean Front', 'Private Pool', 'Outdoor Shower', 'Hammock', 'Private Garden', 'Butler Service'],
+            description: 'A private sanctuary with direct beach access, private pool, and stunning sunset views.',
+            amenities: ['120 m²', 'King Bed', 'Ocean Front', 'Private Pool', 'Outdoor Shower', 'Hammock'],
             images: [
                 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
                 'https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
@@ -100,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'penthouse': {
             title: 'Presidential Penthouse',
             price: '$1,200',
-            description: 'Unmatched luxury on the top floor. Features a private terrace, jacuzzi, dining area, and 24-hour butler service. The Presidential Penthouse is our jewel, hosting dignitaries and celebrities with discreet and impeccable service.',
-            amenities: ['150 m²', '2 Bedrooms', 'Panoramic View', 'Private Terrace', 'Jacuzzi', 'Butler Service', 'Grand Piano', 'Private Chef Option'],
+            description: 'Unmatched luxury on the top floor. Features a private terrace, jacuzzi, dining area, and 24-hour butler service.',
+            amenities: ['150 m²', '2 Bedrooms', 'Panoramic View', 'Private Terrace', 'Jacuzzi', 'Butler Service'],
             images: [
                 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
                 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
@@ -110,82 +62,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const roomSlider = document.getElementById('room-slider');
+    // Only run on the details page
+    let roomImage = document.getElementById('room-img');
 
-    if (roomSlider) {
-        // Get Room ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const roomId = urlParams.get('id');
-        const room = roomData[roomId];
+    if (roomImage) {
+        // Get URL parameter
+        let urlParams = new URLSearchParams(window.location.search);
+        let id = urlParams.get('id');
+        console.log('Room ID:', id);
+
+        let room = roomData[id];
 
         if (room) {
-            // Populate Data
-            document.title = `${room.title} | Hotel Aphrodite`;
+            // Fill text
             document.getElementById('room-title').textContent = room.title;
-            document.getElementById('room-price').innerHTML = `${room.price} <span style="font-size: 1rem; color: #666; font-weight: 400;">/ night</span>`;
+            document.getElementById('room-price').textContent = room.price + ' / night';
             document.getElementById('room-description').textContent = room.description;
 
-            const amenitiesList = document.getElementById('room-amenities');
-            room.amenities.forEach(item => {
-                const li = document.createElement('li');
-                li.innerHTML = `&#10003; ${item}`;
-                amenitiesList.appendChild(li);
+            // Fill amenities list
+            let list = document.getElementById('room-amenities');
+            for (let i = 0; i < room.amenities.length; i++) {
+                let item = document.createElement('li');
+                item.textContent = '- ' + room.amenities[i]; // Simple string
+                list.appendChild(item);
+            }
+
+            // Image Switching Logic
+            let currentImageIndex = 0;
+
+            // Show first image
+            roomImage.src = room.images[0];
+
+            // Button clicks
+            document.getElementById('next-btn').addEventListener('click', function () {
+                // Go to next index
+                currentImageIndex++;
+                // If at end, go back to start
+                if (currentImageIndex >= room.images.length) {
+                    currentImageIndex = 0;
+                }
+                // Update image
+                roomImage.src = room.images[currentImageIndex];
+                console.log('Show image ' + currentImageIndex);
             });
 
-            // Populate Slider
-            const sliderDots = document.getElementById('slider-dots');
-
-            room.images.forEach((imgSrc, index) => {
-                // Slide
-                const slide = document.createElement('div');
-                slide.className = 'slide';
-                slide.innerHTML = `<img src="${imgSrc}" alt="${room.title} Image ${index + 1}">`;
-                roomSlider.appendChild(slide);
-
-                // Dot
-                const dot = document.createElement('div');
-                dot.className = index === 0 ? 'dot active' : 'dot';
-                dot.addEventListener('click', () => goToSlide(index));
-                sliderDots.appendChild(dot);
+            document.getElementById('prev-btn').addEventListener('click', function () {
+                // Go to prev index
+                currentImageIndex--;
+                // If below 0, go to end
+                if (currentImageIndex < 0) {
+                    currentImageIndex = room.images.length - 1;
+                }
+                // Update image
+                roomImage.src = room.images[currentImageIndex];
+                console.log('Show image ' + currentImageIndex);
             });
-
-            // Slider Logic
-            let currentSlide = 0;
-            const totalSlides = room.images.length;
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-
-            function updateSlider() {
-                roomSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
-                document.querySelectorAll('.dot').forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-
-            function goToSlide(index) {
-                currentSlide = index;
-                updateSlider();
-            }
-
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateSlider();
-            }
-
-            function prevSlide() {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateSlider();
-            }
-
-            nextBtn.addEventListener('click', nextSlide);
-            prevBtn.addEventListener('click', prevSlide);
-
-            // Auto Play
-            setInterval(nextSlide, 5000);
 
         } else {
-            // Handle invalid room ID
-            document.querySelector('.room-details-section').innerHTML = '<div class="container"><h2>Room not found</h2><p>Please return to the <a href="rooms.html">Rooms page</a>.</p></div>';
+            console.log('Invalid room');
+            document.querySelector('.room-details-section').innerHTML = '<h2>Room not found</h2>';
         }
     }
+
 });
