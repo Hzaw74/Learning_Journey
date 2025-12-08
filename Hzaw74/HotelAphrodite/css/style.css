@@ -99,13 +99,20 @@ nav {
 /* Hero Section */
 .hero {
     height: 400px;
-    background-size: cover;
-    background-position: center;
+    background: #000;
+    /* Fallback color */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
 }
 
 .hero-content h1 {
