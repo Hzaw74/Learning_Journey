@@ -1,90 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>
-            Course Registration
-        </title>
 
-        <link href="style.css" rel="stylesheet" type="text/css">
-    </head>
+<head>
+    <title>
+        Course Registration
+    </title>
 
-    <body>
-        <h1>Course Registration Form</h1>
-        
-        <hr>
+    <link href="style.css" rel="stylesheet" type="text/css">
 
-        <form method="post" action="mailto:hzaw74@gmail.com" name="register">
-            <fieldset>
-                <legend>Student Information</legend>
+    <script>
+        function f1() {
+            alert("Are you sure to submit the form?");
+            alert("Thank you for your submission");
+            window.open("form_2.html", "small_window", "width=300,height=300");
+            document.bgColor = "teal";
+        }
 
-                <label>Student Name</label>
-                <input type="text" size="20" maxlength="20" autofocus required> <em>*</em>
+        function f2() {
+            alert("Are you sure to reset the form?");
+            document.bgColor = "cyan";
+        }
+    </script>
+</head>
 
-                <br><br>
+<body>
+    <h1>Course Registration Form</h1>
 
-                <label>Student Age</label>
-                <input type="number" size="20" min="16" max="60">
+    <hr>
 
-                <br><br>
+    <form onsubmit="f1()" onreset="f2()">
+        <fieldset>
+            <legend>Student Information</legend>
 
-                <label>Address</label>
-                <input type="text" size="20" placeholder="Enter an address">
-
-                <br><br>
-
-                <label>Gender</label>
-                <input type="radio" name="gender"> Male
-                <input type="radio" name="gender"> Female
-
-                <br><br>
-
-                <label>Contact</label>
-                <input type="email" size="20">
-            </fieldset>
+            <label>Student Name</label>
+            <input type="text" size="20" maxlength="20" autofocus required> <em>*</em>
 
             <br><br>
 
-            <fieldset>
-                <legend>Course Details</legend>
-                <label>Select Course</label>
-                <select size="5" multiple>
-                    <option>Select an option</option>
-                    <option>Diploma in IT</option>
-                    <option>Diploma in Bussiness</option>
-                    <option>Diploma in HR</option>
-                    <option>Diploma in Web Technology</option>
-                </select>
-
-                    <br><br>
-
-                    <label>Select Module(s)</label>
-                    <input type="checkbox">IDDD
-                    <input type="checkbox">PISDM
-                    <input type="checkbox">IMI
-                    <input type="checkbox">ICS
-
-                    <br><br>
-                    
-                    <label>Course Start Date</label>
-                    <input type="date">
-
-                    <br><br>
-
-                    <label>Comments</label>
-                    <textarea rows="3" cols="30">hi</textarea>
-                    
-                    <br><br>
-
-                    <label>File Attachment</label>
-                    <input type="file">
-            </fieldset>
+            <label>Student Age</label>
+            <input type="number" size="20" min="16" max="60">
 
             <br><br>
 
-            <fieldset>
-                <input type="submit" value="Register">
-                <input type="reset">
-            </fieldset>
-        </form>
-    </body>
+            <label>Address</label>
+            <input type="text" size="20" placeholder="Enter an address">
+
+            <br><br>
+
+            <label>Gender</label>
+            <input type="radio" name="gender"> Male
+            <input type="radio" name="gender"> Female
+
+            <br><br>
+
+            <label>Contact</label>
+            <input type="email" size="20">
+        </fieldset>
+
+        <br><br>
+
+        <fieldset>
+            <legend>Course Details</legend>
+            <label>Select Course</label>
+            <select size="5" multiple>
+                <option>Select an option</option>
+                <option>Diploma in IT</option>
+                <option>Diploma in Bussiness</option>
+                <option>Diploma in HR</option>
+                <option>Diploma in Web Technology</option>
+            </select>
+
+            <br><br>
+
+            <label>Select Module(s)</label>
+            <input type="checkbox">IDDD
+            <input type="checkbox">PISDM
+            <input type="checkbox">IMI
+            <input type="checkbox">ICS
+
+            <br><br>
+
+            <label>Course Start Date</label>
+            <input type="date">
+
+            <br><br>
+
+            <label>Comments</label>
+            <textarea rows="3" cols="30">hi</textarea>
+
+            <br><br>
+
+            <label>File Attachment</label>
+            <input type="file">
+        </fieldset>
+
+        <br><br>
+
+        <fieldset>
+            <input type="submit" value="Register">
+            <input type="reset">
+        </fieldset>
+    </form>
+</body>
+
 </html>

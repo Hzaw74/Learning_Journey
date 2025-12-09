@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login Page</title>
+    <style>
+        fieldset {
+            width: 50%;
+            border: 5px double rgb(0, 72, 92);
+            margin: auto;
+        }
+
+        label,
+        input {
+            width: 200px;
+            display: inline-block;
+            color: blue;
+            font-size: 14pt;
+            font-family: arial;
+            margin: auto;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: blue;
+            font-size: 24pt;
+            font-family: arial;
+            margin: auto;
+        }
+
+        input[type=button],
+        input[type=reset] {
+            background-color: antiquewhite;
+        }
+    </style>
+
+    <script>
+        let attempt = 3;
+        function validate() {
+            let username = document.form1.username.value;
+            let password = document.form1.password.value;
+            if (username == "han" && password == "han") {
+                alert("Login successful");
+                window.location.replace("../form/topic6_form.html");
+                return true;
+            }
+            else {
+                attempt--;
+                alert("Login failed! \n You have " + attempt + "attempt(s) left.");
+                document.form1.username.value = '';
+                document.form1.password.value = '';
+                document.form1.username.focus();
+
+                if (attempt == 0) {
+                    document.form1.username.disabled = true;
+                    document.form1.password.disabled = true;
+                    document.form1.login.disabled = true;
+                    return false;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <fieldset>
+        <h1>User Login</h1>
+        <br><br>
+        <form name="form1">
+            <label>Username</label>
+            <input type="text" name="username" required autofocus>
+            <br><br>
+            <label>Password</label>
+            <input type="password" name="password" required>
+            <br><br>
+            <input type="button" value="Login" name="login" onclick="validate()">
+            <input type="reset" value="Clear">
+        </form>
+    </fieldset>
+</body>
+
+</html>

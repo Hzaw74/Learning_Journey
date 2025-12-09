@@ -1,19 +1,21 @@
 // Global variables
-let currentRoomId = '';
-let currentImageIndex = 0;
-let roomImages = [];
+var currentRoomId = '';
+var currentImageIndex = 0;
+var roomImages = [];
 
 // Called when the body loads
 function loadPage() {
     console.log('Page loaded');
 
     // Check if we are on the room details page by looking for the room-img
-    let roomImage = document.getElementById('room-img');
+    var roomImage = document.getElementById('room-img');
 
     if (roomImage) {
-        // Get URL parameter manually
-        const urlParams = new URLSearchParams(window.location.search);
-        let id = urlParams.get('id');
+
+        var url = window.location.search;
+        var params = url.split('=');
+        var id = params[1];
+
         console.log('Room ID:', id);
         currentRoomId = id;
 
@@ -24,7 +26,7 @@ function loadPage() {
             document.getElementById('room-description').innerHTML = 'A perfect blend of comfort and style, featuring a king-sized bed, city views, and a marble bathroom with a rain shower.';
 
             // Manually building the list string
-            let amenitiesHtml = '';
+            var amenitiesHtml = '';
             amenitiesHtml = amenitiesHtml + '<li>- 40 m²</li>';
             amenitiesHtml = amenitiesHtml + '<li>- King Bed</li>';
             amenitiesHtml = amenitiesHtml + '<li>- City View</li>';
@@ -43,7 +45,7 @@ function loadPage() {
             document.getElementById('room-price').innerHTML = '$450 / night';
             document.getElementById('room-description').innerHTML = 'Elevate your stay with a separate living area, executive lounge access, and premium bath amenities.';
 
-            let amenitiesHtml = '';
+            var amenitiesHtml = '';
             amenitiesHtml = amenitiesHtml + '<li>- 65 m²</li>';
             amenitiesHtml = amenitiesHtml + '<li>- King Bed</li>';
             amenitiesHtml = amenitiesHtml + '<li>- Ocean View</li>';
@@ -61,7 +63,7 @@ function loadPage() {
             document.getElementById('room-price').innerHTML = '$350 / night';
             document.getElementById('room-description').innerHTML = 'Spacious accommodation designed for families, featuring two queen beds and a kitchenette.';
 
-            let amenitiesHtml = '';
+            var amenitiesHtml = '';
             amenitiesHtml = amenitiesHtml + '<li>- 55 m²</li>';
             amenitiesHtml = amenitiesHtml + '<li>- 2 Queen Beds</li>';
             amenitiesHtml = amenitiesHtml + '<li>- Garden View</li>';
@@ -72,14 +74,14 @@ function loadPage() {
 
             roomImages[0] = 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
             roomImages[1] = 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-            roomImages[2] = 'https://images.unsplash.com/photo-1616486338812-3a47728331a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
+            roomImages[2] = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
 
         } else if (id == 'villa') {
             document.getElementById('room-title').innerHTML = 'Ocean View Villa';
             document.getElementById('room-price').innerHTML = '$800 / night';
             document.getElementById('room-description').innerHTML = 'A private sanctuary with direct beach access, private pool, and stunning sunset views.';
 
-            let amenitiesHtml = '';
+            var amenitiesHtml = '';
             amenitiesHtml = amenitiesHtml + '<li>- 120 m²</li>';
             amenitiesHtml = amenitiesHtml + '<li>- King Bed</li>';
             amenitiesHtml = amenitiesHtml + '<li>- Ocean Front</li>';
@@ -90,14 +92,14 @@ function loadPage() {
 
             roomImages[0] = 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
             roomImages[1] = 'https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-            roomImages[2] = 'https://images.unsplash.com/photo-1473186578169-21484728384d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
+            roomImages[2] = 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
 
         } else if (id == 'penthouse') {
             document.getElementById('room-title').innerHTML = 'Presidential Penthouse';
             document.getElementById('room-price').innerHTML = '$1,200 / night';
             document.getElementById('room-description').innerHTML = 'Unmatched luxury on the top floor. Features a private terrace, jacuzzi, dining area, and 24-hour butler service.';
 
-            let amenitiesHtml = '';
+            var amenitiesHtml = '';
             amenitiesHtml = amenitiesHtml + '<li>- 150 m²</li>';
             amenitiesHtml = amenitiesHtml + '<li>- 2 Bedrooms</li>';
             amenitiesHtml = amenitiesHtml + '<li>- Panoramic View</li>';
@@ -111,7 +113,8 @@ function loadPage() {
             roomImages[2] = 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
 
         } else {
-            document.querySelector('.room-details-section').innerHTML = '<h2>Room not found</h2>';
+            // Simple error message
+            document.getElementsByClassName('room-details-section')[0].innerHTML = '<h2>Room not found</h2>';
         }
 
         // Set initial image

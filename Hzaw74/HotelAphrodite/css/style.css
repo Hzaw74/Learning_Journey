@@ -1,6 +1,7 @@
 /* Basic Styles */
 body {
-    font-family: Arial, sans-serif;
+    /* using default font */
+    font-family: sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f8f5f2;
@@ -34,7 +35,8 @@ a {
 }
 
 .section-title h2 {
-    font-family: 'Times New Roman', serif;
+    /* header font */
+    font-family: serif;
     font-size: 36px;
     color: #0f172a;
     /* Deep Navy */
@@ -58,6 +60,7 @@ a {
 /* Header & Navigation */
 header {
     background-color: #ffffff;
+    /* bottom border */
     border-bottom: 2px solid #eee;
 }
 
@@ -69,7 +72,7 @@ nav {
 }
 
 .logo {
-    font-family: 'Times New Roman', serif;
+    font-family: serif;
     font-size: 24px;
     font-weight: bold;
     color: #0f172a;
@@ -116,7 +119,7 @@ nav {
 }
 
 .hero-content h1 {
-    font-family: 'Times New Roman', serif;
+    font-family: serif;
     font-size: 48px;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px #000;
@@ -149,7 +152,7 @@ footer {
 }
 
 .footer-col h3 {
-    font-family: 'Times New Roman', serif;
+    font-family: serif;
     margin-bottom: 15px;
     color: #D4AF37;
 }
@@ -166,7 +169,8 @@ footer {
 
 .image-viewer img {
     border: 5px solid #fff;
-    box-shadow: 0 0 10px #ccc;
+    /* basic shadow */
+    box-shadow: 5px 5px 5px grey;
     height: 400px;
     object-fit: cover;
 }
