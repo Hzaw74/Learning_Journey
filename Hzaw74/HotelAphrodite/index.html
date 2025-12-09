@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Aphrodite | Luxury Stay</title>
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <!-- Header -->
     <header>
         <div class="container">
             <nav>
@@ -28,19 +26,14 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" style="position: relative; overflow: hidden;">
-        <!-- Background Video -->
-        <video autoplay muted loop playsinline
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-            <source src="images/151054-800027519_small.mp4" type="video/mp4">
-            <!-- Fallback text -->
-            Your browser does not support the video tag.
-        </video>
 
-        <!-- Overlay to darken video -->
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="Hotel Lobby"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+
         <div
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1;">
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1;">
         </div>
 
         <div class="hero-content">
@@ -50,31 +43,30 @@
         </div>
     </section>
 
-    <!-- About Preview -->
     <section class="about-preview">
         <div class="container">
             <div class="section-title">
                 <h2>Welcome to Hotel Aphrodite</h2>
                 <p>A sanctuary of serenity and style.</p>
             </div>
-            <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 300px;">
+            <div style="border: 2px solid black; padding: 20px; display: flex; align-items: center; gap: 20px;">
+                <div style="width: 400px; flex-shrink: 0;">
                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Hotel Interior" style="border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        alt="Hotel Interior" style="width: 100%; border: 2px solid black; display: block;">
                 </div>
-                <div style="flex: 1; min-width: 300px;">
+                <div>
                     <h3>A Legacy of Excellence</h3>
-                    <p style="margin-bottom: 1.5rem; color: #555;">Nestled in a breathtaking location, Hotel Aphrodite
+                    <p style="margin-bottom: 1.5rem; color: #000;">Nestled in a breathtaking location, Hotel Aphrodite
                         offers an unparalleled blend of modern luxury and timeless elegance. Whether you are here for
                         business or leisure, our dedicated staff ensures a memorable stay with world-class amenities and
                         personalized service.</p>
-                    <a href="about.html" class="btn btn-outline">Read Our Story</a>
+                    <a href="about.html" class="btn"
+                        style="background: gray; border: 1px solid black; color: white;">Read Our Story</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Rooms -->
     <section class="featured-rooms" style="background-color: #fff;">
         <div class="container">
             <div class="section-title">
@@ -82,7 +74,6 @@
                 <p>Relax in our spacious and beautifully appointed rooms.</p>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <!-- Room 1 -->
                 <div
                     style="background: #f9f9f9; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                     <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
@@ -95,7 +86,6 @@
                             &rarr;</a>
                     </div>
                 </div>
-                <!-- Room 2 -->
                 <div
                     style="background: #f9f9f9; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                     <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
@@ -109,7 +99,6 @@
                             &rarr;</a>
                     </div>
                 </div>
-                <!-- Room 3 -->
                 <div
                     style="background: #f9f9f9; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                     <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
@@ -129,39 +118,27 @@
         </div>
     </section>
 
-    <!-- Amenities -->
     <section class="amenities">
         <div class="container">
             <div class="section-title">
                 <h2>World-Class Amenities</h2>
             </div>
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-                <div>
-                    <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">&#127869;</div>
-                    <h4>Fine Dining</h4>
-                    <p style="color: #666;">Exquisite culinary experiences.</p>
-                </div>
-                <div>
-                    <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">&#127946;</div>
-                    <h4>Infinity Pool</h4>
-                    <p style="color: #666;">Relax with a stunning view.</p>
-                </div>
-                <div>
-                    <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">&#128134;</div>
-                    <h4>Luxury Spa</h4>
-                    <p style="color: #666;">Rejuvenate your body and mind.</p>
-                </div>
-                <div>
-                    <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">&#128663;</div>
-                    <h4>Chauffeur Service</h4>
-                    <p style="color: #666;">Travel in style and comfort.</p>
-                </div>
+            <div style="border: 1px solid black; padding: 20px;">
+                <ul
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; list-style-type: none; padding: 0;">
+                    <li style="padding: 10px; background: #eee;">&#127869; Fine Dining - Exquisite culinary experiences.
+                    </li>
+                    <li style="padding: 10px; background: #eee;">&#127946; Infinity Pool - Relax with a stunning view.
+                    </li>
+                    <li style="padding: 10px; background: #eee;">&#128134; Luxury Spa - Rejuvenate your body and mind.
+                    </li>
+                    <li style="padding: 10px; background: #eee;">&#128663; Chauffeur Service - Travel in style and
+                        comfort.</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">

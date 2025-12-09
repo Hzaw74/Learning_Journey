@@ -1,6 +1,4 @@
-/* Basic Styles */
 body {
-    /* using default font */
     font-family: sans-serif;
     line-height: 1.6;
     color: #333;
@@ -22,7 +20,6 @@ a {
     color: inherit;
 }
 
-/* Layout Utilities */
 .container {
     width: 1000px;
     margin: 0 auto;
@@ -35,32 +32,27 @@ a {
 }
 
 .section-title h2 {
-    /* header font */
     font-family: serif;
     font-size: 36px;
     color: #0f172a;
-    /* Deep Navy */
     margin-bottom: 10px;
 }
 
 .btn {
     display: inline-block;
-    padding: 15px 30px;
-    background-color: #D4AF37;
-    /* Gold */
+    padding: 10px 20px;
+    background-color: royalblue;
     color: #ffffff;
     font-weight: bold;
     border-radius: 4px;
 }
 
 .btn:hover {
-    background-color: #b5952f;
+    background-color: darkblue;
 }
 
-/* Header & Navigation */
 header {
     background-color: #ffffff;
-    /* bottom border */
     border-bottom: 2px solid #eee;
 }
 
@@ -75,7 +67,7 @@ nav {
     font-family: serif;
     font-size: 24px;
     font-weight: bold;
-    color: #0f172a;
+    color: #333;
 }
 
 .nav-links {
@@ -89,21 +81,19 @@ nav {
 .nav-links a {
     font-size: 14px;
     font-weight: bold;
-    color: #0f172a;
+    color: #333;
     text-transform: uppercase;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: #D4AF37;
+    color: royalblue;
     text-decoration: underline;
 }
 
-/* Hero Section */
 .hero {
     height: 400px;
     background: #000;
-    /* Fallback color */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,16 +120,14 @@ nav {
     text-shadow: 1px 1px 2px #000;
 }
 
-/* Sections */
 section {
     padding: 40px 0;
 }
 
-/* Footer */
 footer {
-    background-color: #0f172a;
+    background-color: #333;
     color: #ffffff;
-    padding: 40px 0;
+    padding: 20px 0;
 }
 
 .footer-content {
@@ -154,14 +142,13 @@ footer {
 .footer-col h3 {
     font-family: serif;
     margin-bottom: 15px;
-    color: #D4AF37;
+    color: #fff;
 }
 
 .footer-col ul li {
     margin-bottom: 10px;
 }
 
-/* Simple Image Viewer (Replaced Slider) */
 .image-viewer {
     text-align: center;
     margin-bottom: 20px;
@@ -169,7 +156,6 @@ footer {
 
 .image-viewer img {
     border: 5px solid #fff;
-    /* basic shadow */
     box-shadow: 5px 5px 5px grey;
     height: 400px;
     object-fit: cover;
@@ -189,7 +175,6 @@ footer {
     margin: 5px;
 }
 
-/* Room Details Layout */
 .room-details-section {
     padding: 20px 0;
 }

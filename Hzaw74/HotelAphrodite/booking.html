@@ -10,13 +10,10 @@
     <style>
         .booking-form {
             background: #fff;
-            padding: 3rem;
-            border-radius: 5px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border: 2px solid black;
             max-width: 800px;
-            margin: -100px auto 0;
-            position: relative;
-            z-index: 10;
+            margin: 20px auto;
         }
 
         .form-group {
@@ -24,40 +21,27 @@
         }
 
         .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            /* display: grid; Removed for student level */
+            /* grid-template-columns: 1fr 1fr; */
+            /* gap: 1.5rem; */
         }
 
         label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 700;
-            color: var(--secondary-color);
+            font-weight: bold;
+            color: #333;
         }
 
         input,
         select,
         textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: var(--font-body);
-            font-size: 1rem;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+            padding: 10px;
+            border: 1px solid #999;
+            font-family: sans-serif;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
