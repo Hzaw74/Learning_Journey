@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form</title>
+    <style>
+        body {
+            line-height: 200%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        .btn {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Novell Services Login</h1>
+
+    <form>
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Password:</td>
+                <td>
+                    <input type="password">
+                </td>
+            </tr>
+
+            <tr>
+                <td>City of Employment:</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Web Server:</td>
+                <td>
+                    <select size="5" multiple>
+                        <option>--- Choose a server ---</option>
+                        <option>Human Resources</option>
+                        <option>Development</option>
+                        <option>Accounting</option>
+                        <option>Sales</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="5">Please specify your role:</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio">
+                    <label>Admin</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio">
+                    <label>Engineer</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio">
+                    <label>Manager</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="radio">
+                    <label>Guest</label>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td rowspan="4">Single Sign-on to the following:</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="checkbox">
+                    <label>Mail</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="checkbox">
+                    <label>Payroll</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="checkbox">
+                    <label>Self-service</label>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+    <div class="btn">
+        <button type="button">Login</button>
+        <button type="reset">Reset</button>
+    </div>
+</body>
+</html>

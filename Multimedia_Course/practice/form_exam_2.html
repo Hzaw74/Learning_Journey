@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form 2</title>
+    <style>
+        body {
+            line-height: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            margin: auto;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        .role {
+            width: 50px;
+        }
+
+        .role_selection {
+            width: auto;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Novell Services Login</h1>
+
+    <form>
+        <label>Username:</label>
+        <input type="text">
+        <br>
+
+        <label>Password:</label>
+        <input type="password">
+        <br>
+
+        <label>City of Employment:</label>
+        <input type="text">
+        <br>
+        
+        <label>Web server:</label>
+        <select>
+            <option>Human Resources</option>
+            <option>Development</option>
+            <option>Accounting</option>
+            <option>Sales</option>
+        </select>
+        <br>
+
+        <div class="role">
+            <label>Please specify your role:</label>
+        </div>
+
+        <div class="role_selection">
+            <input type="radio">
+            <label>Admin</label>
+            <input type="radio">
+            <label>Engineer</label>
+            <input type="radio">
+            <label>Manager</label>
+            <input type="radio">
+            <label>Gest</label>
+        </div>
+        <br>
+
+        <label>Single Sign-on to the follwong:</label>
+        <input type="checkbox">
+        <label>Mail</label>
+        <input type="checkbox">
+        <label>Payroll</label>
+        <input type="checkbox">
+        <label>Self-service</label>
+    </form>
+    <br>
+
+    <button type="button">Login</button>
+    <button type="reset">Reset</button>
+</body>
+</html>

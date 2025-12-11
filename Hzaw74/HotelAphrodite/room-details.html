@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Details | Hotel Aphrodite</title>
-    <title>Room Details | Hotel Aphrodite</title>
+    <title>Room Details - Hotel Aphrodite</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -17,8 +16,8 @@
                 <a href="index.html" class="logo">HOTEL APHRODITE</a>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="rooms.html" class="active">Rooms & Suites</a></li>
-                    <li><a href="booking.html">Booking</a></li>
+                    <li><a href="rooms.html" class="active">Rooms</a></li>
+                    <li><a href="booking.html">Book</a></li>
                     <li><a href="dining.html">Dining</a></li>
                     <li><a href="offers.html">Offers</a></li>
                     <li><a href="about.html">About</a></li>
@@ -29,39 +28,36 @@
 
     <section class="room-details-section">
         <div class="container">
-            <a href="rooms.html" style="display: inline-block; margin-bottom: 2rem; color: #666;">&larr; Back to
-                Rooms</a>
+            <a href="rooms.html" class="room-back-link">&larr; Back to Rooms</a>
 
             <div class="room-header">
                 <h1 id="room-title">Room Title</h1>
-                <p id="room-price" style="font-size: 1.5rem; color: #D4AF37; font-weight: 700;">$000 <span
-                        style="font-size: 1rem; color: #666; font-weight: 400;">/ night</span></p>
+                <p id="room-price">$000 / night</p>
             </div>
 
             <div class="image-viewer">
                 <img id="room-img" src="" alt="Room Image">
                 <div class="viewer-controls">
-                    <button class="control-btn" onclick="prevImage()">Previous Image</button>
-                    <button class="control-btn" onclick="nextImage()">Next Image</button>
+                    <button class="control-btn" onclick="prevImage()">← Previous</button>
+                    <button class="control-btn" onclick="nextImage()">Next →</button>
                 </div>
             </div>
 
             <div class="room-info-grid">
                 <div class="room-description">
-                    <h2>Description</h2>
+                    <h2>About This Room</h2>
                     <p id="room-description">Loading room details...</p>
 
-                    <h3 style="margin-top: 2rem;">Amenities</h3>
-                    <ul id="room-amenities"
-                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; color: #555;">
+                    <h3>Amenities</h3>
+                    <ul class="room-amenities" id="room-amenities">
                     </ul>
                 </div>
 
                 <div class="room-sidebar">
-                    <div style="background: #f9f9f9; padding: 2rem; border-radius: 5px;">
+                    <div class="booking-card">
                         <h3>Book This Room</h3>
-                        <p style="margin-bottom: 1.5rem; color: #666;">Experience luxury like never before.</p>
-                        <a href="booking.html" class="btn" style="width: 100%; text-align: center;">Book Now</a>
+                        <p>Reserve your stay now and enjoy luxury accommodation.</p>
+                        <a href="booking.html" class="btn">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -70,30 +66,6 @@
 
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h3>Hotel Aphrodite</h3>
-                    <p style="color: #ccc;">Experience the pinnacle of luxury hospitality. Your comfort is our
-                        masterpiece.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="rooms.html">Rooms & Suites</a></li>
-                        <li><a href="dining.html">Dining</a></li>
-                        <li><a href="offers.html">Special Offers</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Contact</h3>
-                    <ul style="color: #ccc;">
-                        <li>123 Luxury Avenue, Paradise City</li>
-                        <li>+1 (555) 123-4567</li>
-                        <li>reservations@hotelaphrodite.com</li>
-                    </ul>
-                </div>
-            </div>
             <div class="copyright">
                 &copy; 2025 Hotel Aphrodite. All rights reserved.
             </div>

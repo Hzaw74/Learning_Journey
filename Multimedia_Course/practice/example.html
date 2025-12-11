@@ -1,0 +1,149 @@
+<!DOCTYPE html >
+<html> 
+<head> 
+  <title>Form Fill Test Page</title> 
+  <style>
+	h1, h2
+	{
+		text-align:center;
+	}
+	fieldset
+	{
+		border: 2px solid gray;
+		margin-left:400px;
+		margin-left:400px;
+		width:50%;
+	}
+	legend
+	{
+		font-size:16pt;
+	}
+	label
+	{
+		font-size : 14pt;
+		width:250px;
+		display:inline-block;
+	}
+	input[type=submit]
+	{
+		margin-left:800px;
+	}
+	body
+	{
+		font-size : 14pt;
+	}
+  </style>
+</head> 
+<body> 
+  <h1>Pete's Pizza Delivery</h1>
+  <h2>Online Order Form</h2>
+  <br><br>
+  <form>
+	<fieldset>
+	  <legend>Customer details</legend>
+	  <label>*Name:</label>
+	  <input type=text size=30><br><br>
+	  <label>*Address:</label>
+	  <input type=text size=50><br><br>
+	  <label>*Town/City:</label>
+	  <input type=text size=20><br><br>
+	  <label>*Postcode:</label>
+	  <input type=text size=10><br><br>
+	  <label>*Tel:</label>
+	  <input type=text size=20><br><br>
+	  <label>*Email:</label>
+	  <input type=text size=50><br><br>
+	</fieldset> <br><br>
+	
+	<fieldset>
+	  <legend>Size *</legend>
+	  <input type=radio> Small <br><br>
+	  <input type=radio> Medium <br><br>
+	  <input type=radio> Large <br><br>
+	</fieldset><br><br>
+	
+	<fieldset>
+	  <legend>Delivery</legend>
+	  <label>Preferred delivery time:</label>
+	  <input type=time><br><br>
+	  <label>Delivery instructions:</label><br>
+	  <textarea rows=3 cols=100></textarea>
+	</fieldset><br><br>
+	
+	<input type=submit value="Submit Order"> 
+  </form>
+
+</body>
+</html>
+
+
+_________________________________________________________________________________
+<!DOCTYPE html >
+<html> 
+<head> 
+  <title>Form Fill Test Page</title> 
+  <style>
+	h1
+	{
+	 text-align:center;
+	}
+	div
+	{
+		width:50%;
+		margin-left:300px;
+	}
+	label
+	{
+		width:200px;
+		display:inline-block;
+	}
+	input[type=submit],input[type=reset]
+	{
+		margin-left:100px;
+	}
+	
+  </style>
+</head>
+<body>
+	<h1>Novell Services Login</h1><br>
+	<div>
+	  <form>
+		<label>UserName:</label>
+		<input type=text><br><br>
+		<label>Password:</label>
+		<input type=text><br><br>
+		<label>City of</label>
+		<input type=text><br><br>
+		<label>Employment:</label>
+		<input type=text><br><br>
+		<label >Web server:</label>
+		<select size=5>
+		   <option>--Choose a server--</option>
+		   <option>Human Resources</option>
+		   <option>Development</option>
+		   <option>Accounting</option>
+		   <option>Sales</option>
+		</select><br><br>
+		<label>Please specify your role:</label>
+		<input type=radio name=role>Admin<br><br>
+		<label></label>
+		<input type=radio name=role>Engineer<br><br>
+		<label></label>
+		<input type=radio name=role>Manager<br><br>
+		<label></label>
+		<input type=radio name=role>Guest<br><br>
+		
+		<label>Single Sign-on to the following</label>
+		<input type=checkbox>Mail<br><br>
+		<label></label>
+		<input type=checkbox>Payroll<br><br>
+		<label></label>
+		<input type=checkbox>Self-service<br><br>
+		
+		<input type=submit value="Login">
+		<input type=reset value="Reset">
+	  </form>
+	</div>
+</body> 
+</html>
+ 

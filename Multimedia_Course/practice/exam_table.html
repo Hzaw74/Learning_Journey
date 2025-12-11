@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>A table</title>
+
+    <style>
+        .dark_blue {
+            color: darkblue;
+        }
+
+        .light_blue {
+            color: rgb(33, 117, 145);
+        }
+
+        .grey_bg {
+            background-color: rgb(220, 220, 220);
+        }
+
+        table {
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Course Number</th>
+            <th>Course Title</th>
+            <th>Semester Taken</th>
+        </tr>
+
+        <tr>
+            <th colspan="3">For Credit</th>
+        </tr>
+
+        <tr class="grey_bg">
+            <td class="dark_blue">6.813</td>
+            <td class="light_blue">User Interface Design</td>
+            <td class="light_blue">Spring 2014</td>
+        </tr>
+
+        <tr>
+            <td class="dark_blue">6.034</td>
+            <td>Artificial Intelligence</td>
+            <td>Fall 2013</td>
+        </tr>
+
+        <tr class="grey_bg">
+            <td class=" dark_blue">6.006</td>
+            <td>Introduction to Algorithms</td>
+            <td>Fall 2013</td>
+        </tr>
+
+        <tr>
+            <th colspan="3">Listener</th>
+        </tr>
+
+        <tr class="grey_bg">
+            <td class="dark_blue">6.867</td>
+            <td>Machine Learning</td>
+            <td>Fall 2013</td>
+        </tr>
+
+        <tr>
+            <td class="dark_blue">6.867</td>
+            <td>Database Systems</td>
+            <td>Fall 2012</td>
+        </tr>
+    </table>
+</body>
+
+</html>
