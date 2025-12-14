@@ -26,9 +26,9 @@ function loadRoomDetails(roomId) {
         document.getElementById('room-description').innerHTML = 'A comfortable room with a king bed, city view, and modern amenities.';
         document.getElementById('room-amenities').innerHTML = '<li>40 m²</li><li>King Bed</li><li>City View</li><li>Free Wi-Fi</li>';
 
-        roomImages[0] = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-        roomImages[1] = 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-        roomImages[2] = 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
+        roomImages[0] = 'images/visualsofdana-T5pL6ciEn-I-unsplash.jpg';
+        roomImages[1] = 'images/kenny-eliason-iAftdIcgpFc-unsplash.jpg';
+        roomImages[2] = 'images/lotus-design-n-print-g51F6-WYzyU-unsplash.jpg';
     }
     else if (roomId == 'suite') {
         document.getElementById('room-title').innerHTML = 'Executive Suite';
@@ -36,9 +36,9 @@ function loadRoomDetails(roomId) {
         document.getElementById('room-description').innerHTML = 'Spacious suite with separate living area and premium amenities.';
         document.getElementById('room-amenities').innerHTML = '<li>65 m²</li><li>King Bed</li><li>Ocean View</li><li>Work Desk</li>';
 
-        roomImages[0] = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-        roomImages[1] = 'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-        roomImages[2] = 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
+        roomImages[0] = 'images/sasha-kaunas-67-sOi7mVIk-unsplash.jpg';
+        roomImages[1] = 'images/lotus-design-n-print-g8tb9SXqZVQ-unsplash.jpg';
+        roomImages[2] = 'images/ikhbale-4eUol_FVp3o-unsplash.jpg';
     }
     else if (roomId == 'penthouse') {
         document.getElementById('room-title').innerHTML = 'Presidential Penthouse';
@@ -46,9 +46,9 @@ function loadRoomDetails(roomId) {
         document.getElementById('room-description').innerHTML = 'Our most luxurious room with panoramic views and butler service.';
         document.getElementById('room-amenities').innerHTML = '<li>150 m²</li><li>2 Bedrooms</li><li>Panoramic View</li><li>Butler Service</li>';
 
-        roomImages[0] = 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-        roomImages[1] = 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
-        roomImages[2] = 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80';
+        roomImages[0] = 'images/point3d-commercial-imaging-ltd-oxeCZrodz78-unsplash.jpg';
+        roomImages[1] = 'images/point3d-commercial-imaging-ltd-_Swg04CP0bU-unsplash.jpg';
+        roomImages[2] = 'images/francesca-tosolini-qnSTxcs0EEs-unsplash.jpg';
     }
 }
 

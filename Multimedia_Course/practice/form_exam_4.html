@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
     <title>Login</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +28,7 @@
             <label>City of Employment:</label>
             <input type="text">
         </div>
-        <div>
+        <div">
             <label>Webserver:</label>
             <select size="5">
                 <option>-- Choose a server --</option>
@@ -30,8 +38,10 @@
                 <option>Sales</option>
             </select>
         </div>
-        <div>
-            <label>Please specify your role</label>
+        <div class="grid">
+            <div>
+                <label>Please specify your role</label>
+            </div>
             <div>
                 <input type="radio">
                 <label>Admin</label>
