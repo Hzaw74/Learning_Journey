@@ -1,14 +1,11 @@
-// Global variables
 var currentImageIndex = 0;
 var roomImages = [];
 var currentRoomId = '';
 
-// Load room details when page loads
 function loadPage() {
     var roomImage = document.getElementById('room-img');
 
     if (roomImage) {
-        // Get room id from URL
         var url = window.location.search;
         var params = url.split('=');
         currentRoomId = params[1];
@@ -18,7 +15,6 @@ function loadPage() {
     }
 }
 
-// Load room information based on room id
 function loadRoomDetails(roomId) {
     if (roomId == 'deluxe') {
         document.getElementById('room-title').innerHTML = 'Deluxe Room';
@@ -52,13 +48,11 @@ function loadRoomDetails(roomId) {
     }
 }
 
-// Display the room image
 function displayRoomImage() {
     var roomImage = document.getElementById('room-img');
     roomImage.src = roomImages[currentImageIndex];
 }
 
-// Show next image
 function nextImage() {
     currentImageIndex = currentImageIndex + 1;
     if (currentImageIndex == 3) {
@@ -67,7 +61,6 @@ function nextImage() {
     displayRoomImage();
 }
 
-// Show previous image
 function prevImage() {
     currentImageIndex = currentImageIndex - 1;
     if (currentImageIndex < 0) {
@@ -76,5 +69,4 @@ function prevImage() {
     displayRoomImage();
 }
 
-// Run when page loads
 window.onload = loadPage;

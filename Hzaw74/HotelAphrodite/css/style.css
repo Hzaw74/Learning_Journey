@@ -112,14 +112,14 @@ nav {
     margin-bottom: 10px;
     color: #fff;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 3px #000;
 }
 
 .hero-content p {
     font-size: 15px;
     margin-bottom: 15px;
     color: #f0f0f0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px #000;
 }
 
 .hero-content {
@@ -135,7 +135,6 @@ nav {
     text-decoration: none;
     border: none;
     font-weight: 700;
-    cursor: pointer;
     font-size: 14px;
     border-radius: 6px;
 }
@@ -144,19 +143,7 @@ nav {
     background-color: #bfa15a;
 }
 
-.btn--outline {
-    display: inline-block;
-    padding: 8px 12px;
-    background: transparent;
-    color: #1f1f1f;
-    border: 1px solid #C5A059;
-    border-radius: 6px;
-    font-weight: 700;
-}
 
-.btn--outline:hover {
-    background-color: rgba(197, 160, 89, 0.08);
-}
 
 
 
@@ -168,9 +155,7 @@ nav {
     color: #111;
     border: none;
     font-weight: bold;
-    cursor: pointer;
     font-size: 15px;
-    box-sizing: border-box;
 }
 
 .btn-submit:hover {
@@ -327,24 +312,7 @@ footer {
     font-size: 12px;
 }
 
-.footer-links {
-    text-align: center;
-    margin-top: 8px;
-}
 
-.footer-links a {
-    color: #C5A059;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 13px;
-    margin: 0 8px;
-    display: inline-block;
-}
-
-.footer-links a:hover {
-    color: #bfa15a;
-    text-decoration: underline;
-}
 
 .room-item {
     margin: 0 auto 20px;
@@ -469,7 +437,6 @@ footer {
     background-color: #1f1f1f;
     color: #C5A059;
     border: 1px solid #C5A059;
-    cursor: pointer;
     font-size: 14px;
     font-weight: bold;
     min-width: 120px;
@@ -477,7 +444,7 @@ footer {
 }
 
 .control-btn:focus {
-    outline: 2px solid rgba(197, 160, 89, 0.25);
+    outline: 2px solid #C5A059;
 }
 
 .control-btn:hover {
