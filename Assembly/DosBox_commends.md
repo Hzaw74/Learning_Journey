@@ -1,0 +1,2 @@
+- cls clear screen
+- dir list directories
