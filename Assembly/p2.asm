@@ -3,6 +3,9 @@ section .data
     suc_message db 'Successful$'
     err_message db 'Error! Please enter 0-9$'
     new_line db 0Dh, 0Ah
+    even db 'Its even number.$'
+    odd db 'Its odd number.$'
+    result db 0
 
 section .bss
     input resb 1
@@ -40,6 +43,35 @@ _start:
     int 21h
 
     mov dx, suc_message
+    mov ah, 09h
+    int 21h
+    ; jmp exit
+
+    mov ah, 02h
+    mov dl, [new_line]
+    int 21h
+    
+    mov dl, [new_line+1]
+    int 21h
+
+    xor ah, ah
+    mov al, [input]
+    xor dx, dx
+    mov bl, 2
+    div bl
+
+    cmp ah, 0
+    je even_message
+    jne odd_message
+
+odd_message:
+    mov dx, odd
+    mov ah, 09h
+    int 21h
+    jmp exit
+
+even_message:
+    mov dx, even
     mov ah, 09h
     int 21h
     jmp exit

@@ -70,9 +70,8 @@ class BluetoothHIDService:
             0xc0
         ]
         
-        # Tightly capped buffer: 5 packets (~80ms latency max)
-        # We rely on main.py to accumulate delta if this is full.
-        self.send_queue = queue.Queue(maxsize=5)
+        # Large buffer with TTL dropping (Latency Killer)
+        self.send_queue = queue.Queue(maxsize=100)
         self.sdp_xml = self.create_sdp_record()
 
     def create_sdp_record(self):
@@ -203,8 +202,8 @@ class BluetoothHIDService:
     def send_report(self, data):
         if self.sock:
             try:
-                # Put in queue (Non-blocking). Returns True/False to signal backpressure.
-                self.send_queue.put_nowait(data)
+                # Put in queue (Non-blocking) with Timestamp
+                self.send_queue.put_nowait((data, time.time()))
                 return True
             except queue.Full:
                 return False
@@ -217,7 +216,16 @@ class BluetoothHIDService:
         logger.info("Sender Thread started")
         while True:
             try:
-                data = self.send_queue.get()
+                item = self.send_queue.get()
+                data, timestamp = item
+                
+                # TTL Check (Latency Killer)
+                # If Mouse packet (ID 0x02) is older than 30ms, DROP IT.
+                if len(data) > 1 and data[1] == 0x02:
+                     if time.time() - timestamp > 0.03:
+                         self.send_queue.task_done()
+                         continue
+                
                 if self.sock:
                     try:
                         self.sock.send(data)

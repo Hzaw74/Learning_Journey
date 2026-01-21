@@ -40,7 +40,7 @@ class UniversalControlApp:
         self.touch_active = False
         
         # Sensitivity
-        self.mouse_sensitivity = 0.8
+        self.mouse_sensitivity = 1.0
         self.scroll_sensitivity = 1.0
         self.remainder_x = 0.0
         self.remainder_y = 0.0
@@ -166,9 +166,9 @@ class UniversalControlApp:
                  self.flush_mouse()
 
     def flush_mouse(self, force=False):
-        # Rate Limiting: 60Hz (16ms) - Stable standard
+        # Rate Limiting: 125Hz (8ms) - Standard HID Poll Rate
         now = time.time()
-        if not force and (now - self.last_mouse_sent < 0.016): 
+        if not force and (now - self.last_mouse_sent < 0.008): 
             return # Accumulate more
     
         # Sensitivity Scaling (0.8x)
@@ -191,20 +191,20 @@ class UniversalControlApp:
             send = True
             
         if send:
-             # Try to send. 
-             # If successful, we clear accumulators.
-             # If failing (buffer full), we KEEP the delta and try again next tick.
-             # This prevents "Sticky Lag" (lost movement).
-             if self.send_mouse_report(send_x, send_y, send_w, self.mouse_buttons):
-                 self.mouse_dx = 0
-                 self.mouse_dy = 0
-                 self.mouse_wheel = 0
-                 
-                 self.remainder_x = new_rem_x
-                 self.remainder_y = new_rem_y
-                 self.remainder_wheel = new_rem_w
-                 
-                 self.last_mouse_sent = now
+             # Fire and Forget. 
+             # We rely on bt_hid TTL (20ms) to kill lag.
+             # We clear accumulators every tick to ensure "Real-Time" feel.
+             self.send_mouse_report(send_x, send_y, send_w, self.mouse_buttons)
+             
+             self.mouse_dx = 0
+             self.mouse_dy = 0
+             self.mouse_wheel = 0
+             
+             self.remainder_x = new_rem_x
+             self.remainder_y = new_rem_y
+             self.remainder_wheel = new_rem_w
+             
+             self.last_mouse_sent = now
 
     def send_mouse_report(self, dx, dy, wheel, buttons=0):
         # ... logic ...
