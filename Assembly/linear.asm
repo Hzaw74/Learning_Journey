@@ -58,5 +58,5 @@ not_found:
 
     ; 5. TERMINATE PROGRAM
 exit_prog:
-    mov ax, 4c00h               ; DOS Function 4Ch: Terminate Program
+    mov ax, 4Ch               ; DOS Function 4Ch: Terminate Program
     int 21h                     ; Return control to DOS
