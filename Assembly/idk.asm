@@ -37,7 +37,7 @@ search_loop:
     ; Target Found
 found:
     ; Print the "Element found" string
-    mov ah, 9h                  ; DOS Interrupt 9h: Print String
+    mov ah, 9h                  ; DOS Interrupt 09h: Print String
     mov dx, msg_found           ; Load address of 'msg_found' string into DX
     int 21h                     ; Execute interrupt to print string
 
